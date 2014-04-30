@@ -1,0 +1,30 @@
+{
+    "name": "uthando-cms/uthando-theme-manager",
+    "description": "Theme Manager module for Uthando CMS",
+    "license": "BSD-3-Clause",
+    "keywords": [ "framework", "zf2","cms", "uthando", "theme", "manager"],
+    "homepage": "http://shaunfreeman.name/",
+    
+    "authors": [
+        {
+            "name": "Shaun Freeman",
+            "email": "shaun@shaunfreeman.co.uk",
+            "homepage": "https://github.com/shaunfreeman",
+            "role": "Developer"
+        }
+    ],
+    
+    "require" : {
+	    "php" : ">=5.4",
+	    "zendframework/zendframework" : "2.*"
+    },
+    
+    "autoload": {
+        "psr-0": {
+            "UthandoThemeManager": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}
