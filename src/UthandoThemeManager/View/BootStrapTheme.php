@@ -59,7 +59,7 @@ class BootStrapTheme extends AbstractViewHelper
                 self::BOOTSTRAP_VERSION,
                 'css',
                 self::BOOTSTRAP_CSS
-            ]));
+            ]), 'screen,print');
             
             $headlinkHelper()->offsetSetStylesheet(1, join('/', [
         		self::BOOTSTRAP_CDN,
@@ -67,7 +67,7 @@ class BootStrapTheme extends AbstractViewHelper
         		self::BOOTSTRAP_VERSION,
                 'css',
         		self::BOOTSTRAP_THEME_CSS
-            ]));
+            ]), 'screen,print');
             
         } else {
             //netdna.bootstrapcdn.com/bootswatch/3.1.1/simplex/bootstrap.min.css
@@ -77,7 +77,7 @@ class BootStrapTheme extends AbstractViewHelper
         		self::BOOTSTRAP_VERSION,
         		$this->getTheme(),
         		self::BOOTSTRAP_CSS
-            ]));
+            ]), 'screen,print');
         }
         
         // JS
