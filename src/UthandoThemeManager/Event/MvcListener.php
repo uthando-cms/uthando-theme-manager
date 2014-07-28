@@ -5,13 +5,14 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\Permissions\Acl\Role\RoleInterface;
 
 class MvcListener implements ListenerAggregateInterface
 {
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
      */
-    protected $listeners = array();
+    protected $listeners = [];
     
     protected $adminTheme = false;
 
@@ -84,12 +85,19 @@ class MvcListener implements ListenerAggregateInterface
     
     public function onDispatchError(MvcEvent $event)
     {
-    	$request = $event->getRequest();
-    	$requestUri = $request->getRequestUri(); 
+    	$request       = $event->getRequest();
+    	$requestUri    = $request->getRequestUri(); 
+        $auth          = (isset($_SESSION['Zend_Auth'])) ? $_SESSION['Zend_Auth'] : null;
         
-        if (0 === strpos($requestUri, '/admin')) {
-    		$this->adminTheme = true;
-    	}
+        if ($auth && $auth->storage instanceof RoleInterface) {
+            $role = $auth->storage->getRoleId();
+        } else {
+            $role = 'guest';
+        }
+    
+        if (0 === strpos($requestUri, '/admin') && 'admin' === $role) {
+		  $this->adminTheme = true;
+        }
     	
     	$this->renderTheme($event);
     }
