@@ -6,6 +6,7 @@ use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Permissions\Acl\Role\RoleInterface;
+use Zend\Http\Request;
 
 class MvcListener implements ListenerAggregateInterface
 {
@@ -35,7 +36,7 @@ class MvcListener implements ListenerAggregateInterface
     }
     
     public function renderTheme(MvcEvent $event)
-    {
+    {   
         $sm = $event->getApplication()->getServiceManager();
         
         $appConfig = $sm->get('config');
@@ -69,6 +70,10 @@ class MvcListener implements ListenerAggregateInterface
     
     public function onDispatch(MvcEvent $event)
     {
+        if (!$event->getRequest() instanceof Request) {
+        	return;
+        }
+        
         $match = $event->getRouteMatch();
         $controller = $event->getTarget();
         
@@ -85,6 +90,10 @@ class MvcListener implements ListenerAggregateInterface
     
     public function onDispatchError(MvcEvent $event)
     {
+        if (!$event->getRequest() instanceof Request) {
+        	return;
+        }
+        
     	$request       = $event->getRequest();
     	$requestUri    = $request->getRequestUri(); 
         $auth          = (isset($_SESSION['Zend_Auth'])) ? $_SESSION['Zend_Auth'] : null;
