@@ -40,6 +40,7 @@ class Module
     	return [
     	   'invokables' => [
     	       'Bootstrap' => 'UthandoThemeManager\View\BootStrapTheme',
+    	       'ThemePath' => 'UthandoThemeManager\View\ThemePath',
     	   ],
     	];
     }
