@@ -14,8 +14,6 @@ class MvcListener implements ListenerAggregateInterface
      * @var \Zend\Stdlib\CallbackHandler[]
      */
     protected $listeners = [];
-    
-    protected $adminTheme = false;
 
     /**
      * {@inheritDoc}
@@ -37,15 +35,14 @@ class MvcListener implements ListenerAggregateInterface
     
     public function renderTheme(MvcEvent $event)
     {   
-        $sm = $event->getApplication()->getServiceManager();
-        
-        $appConfig = $sm->get('config');
-        $themeConfig = $appConfig['theme_manager'];
-        $theme = ($this->adminTheme) ? $themeConfig['admin_theme'] : $themeConfig['default_theme'];
-        $path = $themeConfig['theme_path'];
-        
-        $config = null;
-        $configFile = $path . $theme . '/config.php';
+        $sm             = $event->getApplication()->getServiceManager();
+        $isAdmin        = $event->getRouteMatch()->getParam('is-admin');
+        $appConfig      = $sm->get('config');
+        $themeConfig    = $appConfig['theme_manager'];
+        $theme          = ($isAdmin) ? $themeConfig['admin_theme'] : $themeConfig['default_theme'];
+        $path           = $themeConfig['theme_path'];
+        $config         = null;
+        $configFile     = $path . $theme . '/config.php';
         
         if (file_exists($configFile)){
             $config = include ($configFile);
@@ -81,10 +78,6 @@ class MvcListener implements ListenerAggregateInterface
             return;
         }
         
-        if (0 === strpos($match->getMatchedRouteName(), 'admin')) {
-            $this->adminTheme = true;
-        }
-        
         $this->renderTheme($event);
     }
     
@@ -92,20 +85,6 @@ class MvcListener implements ListenerAggregateInterface
     {
         if (!$event->getRequest() instanceof Request) {
         	return;
-        }
-        
-    	$request       = $event->getRequest();
-    	$requestUri    = $request->getRequestUri(); 
-        $auth          = (isset($_SESSION['Zend_Auth'])) ? $_SESSION['Zend_Auth'] : null;
-        
-        if ($auth && $auth->storage instanceof RoleInterface) {
-            $role = $auth->storage->getRoleId();
-        } else {
-            $role = 'guest';
-        }
-    
-        if (0 === strpos($requestUri, '/admin') && 'admin' === $role) {
-		  $this->adminTheme = true;
         }
     	
     	$this->renderTheme($event);
