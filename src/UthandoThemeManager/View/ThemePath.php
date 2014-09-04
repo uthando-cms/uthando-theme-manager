@@ -17,7 +17,7 @@ class ThemePath extends AbstractViewHelper
             ->getMvcEvent()
             ->getRouteMatch()
             ->getParam('is-admin');
-        
+
     	$config     = $this->getConfig('theme_manager');
     	$theme      = ($isAdmin) ? $config['admin_theme'] : $config['default_theme'];
     	$themePath  = trim(ltrim(strstr($config['theme_path'], 'public'), 'public'), '/');
