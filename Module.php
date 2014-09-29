@@ -12,18 +12,9 @@ class Module
         $eventManager->attach(new MvcListener());
     }
     
-    public function getAutoloaderConfig()
-    {
-        return [
-            'Zend\Loader\ClassMapAutoloader' => [
-                __DIR__ . '/autoload_classmap.php'
-            ],
-        ];
-    }
-    
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        return include __DIR__ . '/config/config.php';
     }
     
     public function getServiceConfig()
@@ -43,5 +34,14 @@ class Module
     	       'ThemePath' => 'UthandoThemeManager\View\ThemePath',
     	   ],
     	];
+    }
+
+    public function getAutoloaderConfig()
+    {
+        return [
+            'Zend\Loader\ClassMapAutoloader' => [
+                __DIR__ . '/autoload_classmap.php'
+            ],
+        ];
     }
 }
