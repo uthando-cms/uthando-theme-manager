@@ -6,7 +6,7 @@ use UthandoCommon\View\AbstractViewHelper;
 class BootStrapTheme extends AbstractViewHelper
 {
     const BOOTSTRAP_VERSION = '3.2.0';
-    const BOOTSWATCH_VERSION = '3.1.1';
+    const BOOTSWATCH_VERSION = '3.2.0';
     const BOOTSTRAP_PART = 'bootstrap';
     const BOOTSWATCH_PART = 'bootswatch';
     const BOOTSTRAP_CDN = '//maxcdn.bootstrapcdn.com';
@@ -16,12 +16,12 @@ class BootStrapTheme extends AbstractViewHelper
     
     const GOOGLE_AJAX_API = '//ajax.googleapis.com';
     const JQUERY_PATH = 'ajax/libs/jquery';
-    const JQUERY_VERSION = '2.0.3';
+    const JQUERY_VERSION = '2.1.1';
     const JQUERY_JS = 'jquery.min.js';
     
     const FONT_AWESOME_CSS = 'css/font-awesome.css';
     const FONT_AWESOME_PART = 'font-awesome';
-    const FONT_AWESOME_VERSION = '4.1.0';
+    const FONT_AWESOME_VERSION = '4.2.0';
     
     protected $theme = 'default';
     
