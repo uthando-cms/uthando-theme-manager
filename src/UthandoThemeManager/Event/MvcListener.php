@@ -3,20 +3,19 @@ namespace UthandoThemeManager\Event;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
+use Zend\EventManager\ListenerAggregateTrait;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
-use Zend\Permissions\Acl\Role\RoleInterface;
 use Zend\Http\Request;
+use Zend\View\Resolver\AggregateResolver;
+use Zend\View\Resolver\TemplateMapResolver;
 
 class MvcListener implements ListenerAggregateInterface
 {
-    /**
-     * @var \Zend\Stdlib\CallbackHandler[]
-     */
-    protected $listeners = [];
+    use ListenerAggregateTrait;
 
     /**
-     * {@inheritDoc}
+     * @param EventManagerInterface $events
      */
     public function attach(EventManagerInterface $events)
     {
@@ -24,17 +23,12 @@ class MvcListener implements ListenerAggregateInterface
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, [$this, 'onDispatchError']);
     }
 
-    public function detach(EventManagerInterface $events)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
-    }
-    
+    /**
+     * @param MvcEvent $event
+     * @return bool
+     */
     public function renderTheme(MvcEvent $event)
-    {   
+    {
         $sm             = $event->getApplication()->getServiceManager();
         $isAdmin        = $event->getRouteMatch()->getParam('is-admin');
         $appConfig      = $sm->get('config');
@@ -47,24 +41,29 @@ class MvcListener implements ListenerAggregateInterface
         if (file_exists($configFile)){
             $config = include ($configFile);
         }
-        
-        $viewResolver = $sm->get('ViewResolver');
-        $themeResolver = new \Zend\View\Resolver\AggregateResolver();
+
+        //$viewResolver = $sm->get('ViewResolver');
+        //$themeResolver = new AggregateResolver();
         
         if (isset($config['template_map'])){
             $viewResolverMap = $sm->get('ViewTemplateMapResolver');
+
             $viewResolverMap->add($config['template_map']);
-            $mapResolver = new \Zend\View\Resolver\TemplateMapResolver(
+            /*$mapResolver = new TemplateMapResolver(
                 $config['template_map']
-            );
-            $themeResolver->attach($mapResolver);
+            );*/
+
+            //$themeResolver->attach($mapResolver);
         }
         
-        $viewResolver->attach($themeResolver, 1000);
-        
+        //$viewResolver->attach($themeResolver, 10000);
+
         return true;
     }
-    
+
+    /**
+     * @param MvcEvent $event
+     */
     public function onDispatch(MvcEvent $event)
     {
         if (!$event->getRequest() instanceof Request) {
@@ -72,7 +71,6 @@ class MvcListener implements ListenerAggregateInterface
         }
         
         $match = $event->getRouteMatch();
-        $controller = $event->getTarget();
         
         if (!$match instanceof RouteMatch) {
             return;
@@ -80,7 +78,10 @@ class MvcListener implements ListenerAggregateInterface
         
         $this->renderTheme($event);
     }
-    
+
+    /**
+     * @param MvcEvent $event
+     */
     public function onDispatchError(MvcEvent $event)
     {
         if (!$event->getRequest() instanceof Request) {
