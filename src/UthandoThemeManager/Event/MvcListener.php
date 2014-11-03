@@ -5,7 +5,9 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\ListenerAggregateTrait;
 use Zend\Mvc\MvcEvent;
+use Zend\Permissions\Acl\Role\RoleInterface;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\Mvc\Router\Http\RouteMatch as HttpRouteMatch;
 use Zend\Http\Request;
 use Zend\View\Resolver\AggregateResolver;
 use Zend\View\Resolver\TemplateMapResolver;
@@ -30,7 +32,7 @@ class MvcListener implements ListenerAggregateInterface
     public function renderTheme(MvcEvent $event)
     {
         $sm             = $event->getApplication()->getServiceManager();
-        $isAdmin        = $event->getRouteMatch()->getParam('is-admin');
+        $isAdmin        = $this->isAdmin($event);
         $appConfig      = $sm->get('config');
         $themeConfig    = $appConfig['theme_manager'];
         $theme          = ($isAdmin) ? $themeConfig['admin_theme'] : $themeConfig['default_theme'];
@@ -59,6 +61,41 @@ class MvcListener implements ListenerAggregateInterface
         //$viewResolver->attach($themeResolver, 10000);
 
         return true;
+    }
+
+    /**
+     * @param MvcEvent $event
+     * @return bool
+     */
+    public function isAdmin(MvcEvent $event)
+    {
+        $routeMatch = $event->getRouteMatch();
+
+        if (!$routeMatch instanceof RouteMatch) {
+
+            $event->setRouteMatch(new HttpRouteMatch([]));
+            $request = $event->getRequest();
+            $requestUri = $request->getRequestUri();
+
+            $auth = (isset($_SESSION['Zend_Auth'])) ? $_SESSION['Zend_Auth'] : null;
+            if ($auth && $auth->storage instanceof RoleInterface) {
+                $role = $auth->storage->getRoleId();
+            } else {
+                $role = 'guest';
+            }
+
+            $basePathHelper = $event->getApplication()
+                ->getServiceManager()
+                ->get('ViewHelperManager')
+                ->get('basePath');
+            $basePath = $basePathHelper();
+
+            if (0 === strpos($requestUri, $basePath . '/admin') && 'admin' === $role) {
+                $event->getRouteMatch()->setParam('is-admin', true);
+            }
+        }
+
+        return $event->getRouteMatch()->getParam('is-admin');
     }
 
     /**
