@@ -20,10 +20,9 @@ class ThemePath extends AbstractViewHelper
 
     	$config     = $this->getConfig('theme_manager');
     	$theme      = ($isAdmin) ? $config['admin_theme'] : $config['default_theme'];
-    	$themePath  = trim(ltrim(strstr($config['theme_path'], 'public'), 'public'), '/');
     	
     	$file = join('/', array(
-    		$themePath,
+    		'themes',
     	    $theme,
     	    $file
     	));
