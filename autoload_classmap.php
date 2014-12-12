@@ -7,5 +7,6 @@ return array(
   'UthandoThemeManager\Service\ThemeOptionsFactory' => __DIR__ . '/src/UthandoThemeManager/Service/ThemeOptionsFactory.php',
   'UthandoThemeManager\View\BootStrapTheme'         => __DIR__ . '/src/UthandoThemeManager/View/BootStrapTheme.php',
   'UthandoThemeManager\View\SocialLinks'            => __DIR__ . '/src/UthandoThemeManager/View/SocialLinks.php',
+  'UthandoThemeManager\View\ThemeOptions'           => __DIR__ . '/src/UthandoThemeManager/View/ThemeOptions.php',
   'UthandoThemeManager\View\ThemePath'              => __DIR__ . '/src/UthandoThemeManager/View/ThemePath.php',
 );

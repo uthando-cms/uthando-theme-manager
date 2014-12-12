@@ -32,6 +32,7 @@ class Module
     	   'invokables' => [
     	       'Bootstrap'      => 'UthandoThemeManager\View\BootStrapTheme',
                'SocialLinks'    => 'UthandoThemeManager\View\SocialLinks',
+               'ThemeOptions'   => 'UthandoThemeManager\View\ThemeOptions',
     	       'ThemePath'      => 'UthandoThemeManager\View\ThemePath',
     	   ],
     	];
