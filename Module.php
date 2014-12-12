@@ -30,8 +30,9 @@ class Module
     {
     	return [
     	   'invokables' => [
-    	       'Bootstrap' => 'UthandoThemeManager\View\BootStrapTheme',
-    	       'ThemePath' => 'UthandoThemeManager\View\ThemePath',
+    	       'Bootstrap'      => 'UthandoThemeManager\View\BootStrapTheme',
+               'SocialLinks'    => 'UthandoThemeManager\View\SocialLinks',
+    	       'ThemePath'      => 'UthandoThemeManager\View\ThemePath',
     	   ],
     	];
     }
