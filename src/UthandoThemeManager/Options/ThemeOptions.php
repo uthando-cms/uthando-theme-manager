@@ -5,6 +5,7 @@ use Zend\Stdlib\AbstractOptions;
 
 class ThemeOptions extends AbstractOptions
 {
+    protected $__strictMode__ = false;
     /**
      * @var string
      */
