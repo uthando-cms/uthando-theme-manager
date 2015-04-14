@@ -9,8 +9,6 @@ use Zend\Permissions\Acl\Role\RoleInterface;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\Http\RouteMatch as HttpRouteMatch;
 use Zend\Http\Request;
-use Zend\View\Resolver\AggregateResolver;
-use Zend\View\Resolver\TemplateMapResolver;
 
 class MvcListener implements ListenerAggregateInterface
 {
@@ -43,22 +41,12 @@ class MvcListener implements ListenerAggregateInterface
         if (file_exists($configFile)){
             $config = include ($configFile);
         }
-
-        //$viewResolver = $sm->get('ViewResolver');
-        //$themeResolver = new AggregateResolver();
         
         if (isset($config['template_map'])){
             $viewResolverMap = $sm->get('ViewTemplateMapResolver');
 
             $viewResolverMap->add($config['template_map']);
-            /*$mapResolver = new TemplateMapResolver(
-                $config['template_map']
-            );*/
-
-            //$themeResolver->attach($mapResolver);
         }
-        
-        //$viewResolver->attach($themeResolver, 10000);
 
         return true;
     }
