@@ -14,28 +14,7 @@ class Module
     
     public function getConfig()
     {
-        return include __DIR__ . '/config/config.php';
-    }
-    
-    public function getServiceConfig()
-    {
-    	return [
-    	'factories'     => [
-        	   'UthandoThemeManager\Options\ThemeOptions'  => 'UthandoThemeManager\Service\ThemeOptionsFactory',
-        	],
-    	];
-    }
-    
-    public function getViewHelperConfig()
-    {
-    	return [
-    	   'invokables' => [
-    	       'Bootstrap'      => 'UthandoThemeManager\View\BootStrapTheme',
-               'SocialLinks'    => 'UthandoThemeManager\View\SocialLinks',
-               'ThemeOptions'   => 'UthandoThemeManager\View\ThemeOptions',
-    	       'ThemePath'      => 'UthandoThemeManager\View\ThemePath',
-    	   ],
-    	];
+        return include __DIR__ . '/config/module.config.php';
     }
 
     public function getAutoloaderConfig()
