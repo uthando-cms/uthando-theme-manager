@@ -15,6 +15,7 @@ use UthandoCommon\View\AbstractViewHelper;
 
 /**
  * Class SocialLinks
+ *
  * @package UthandoThemeManager\View
  */
 class SocialLinks extends AbstractViewHelper

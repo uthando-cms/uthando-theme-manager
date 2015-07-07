@@ -1,8 +1,23 @@
 <?php
+/**
+ * Uthando CMS (http://www.shaunfreeman.co.uk/)
+ *
+ * @package   UthandoThemeManager\View
+ * @author    Shaun Freeman <shaun@shaunfreeman.co.uk>
+ * @link      https://github.com/uthando-cms for the canonical source repository
+ * @copyright Copyright (c) 2014 Shaun Freeman. (http://www.shaunfreeman.co.uk)
+ * @license   see LICENSE.txt
+ */
+
 namespace UthandoThemeManager\View;
 
 use UthandoCommon\View\AbstractViewHelper;
 
+/**
+ * Class BootStrapTheme
+ *
+ * @package UthandoThemeManager\View
+ */
 class BootStrapTheme extends AbstractViewHelper
 {
     const BOOTSTRAP_VERSION = '3.3.5';
@@ -83,7 +98,7 @@ class BootStrapTheme extends AbstractViewHelper
             		self::BOOTSTRAP_VERSION,
                     'css',
             		self::BOOTSTRAP_THEME_CSS
-                ]), 'screen,print');   
+                ]), 'screen,print');
             
             } else {
                 
