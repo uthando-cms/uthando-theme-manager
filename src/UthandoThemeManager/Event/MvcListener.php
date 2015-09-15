@@ -30,22 +30,25 @@ class MvcListener implements ListenerAggregateInterface
     public function renderTheme(MvcEvent $event)
     {
         $sm             = $event->getApplication()->getServiceManager();
-        $isAdmin        = $this->isAdmin($event);
         $appConfig      = $sm->get('config');
-        $themeConfig    = $appConfig['theme_manager'];
-        $theme          = ($isAdmin) ? $themeConfig['admin_theme'] : $themeConfig['default_theme'];
-        $path           = $themeConfig['theme_path'];
-        $config         = null;
-        $configFile     = $path . $theme . '/config.php';
-        
-        if (file_exists($configFile)){
-            $config = include ($configFile);
-        }
-        
-        if (isset($config['template_map'])){
-            $viewResolverMap = $sm->get('ViewTemplateMapResolver');
 
-            $viewResolverMap->add($config['template_map']);
+        if (isset($appConfig['theme_manager'])) {
+            $isAdmin        = $this->isAdmin($event);
+            $themeConfig    = $appConfig['theme_manager'];
+            $theme          = ($isAdmin) ? $themeConfig['admin_theme'] : $themeConfig['default_theme'];
+            $path           = $themeConfig['theme_path'];
+            $config         = null;
+            $configFile     = $path . $theme . '/config.php';
+
+            if (file_exists($configFile)) {
+                $config = include($configFile);
+            }
+
+            if (isset($config['template_map'])) {
+                $viewResolverMap = $sm->get('ViewTemplateMapResolver');
+
+                $viewResolverMap->add($config['template_map']);
+            }
         }
 
         return true;
