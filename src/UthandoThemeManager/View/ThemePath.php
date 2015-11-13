@@ -6,7 +6,7 @@
  * @author    Shaun Freeman <shaun@shaunfreeman.co.uk>
  * @link      https://github.com/uthando-cms for the canonical source repository
  * @copyright Copyright (c) 2014 Shaun Freeman. (http://www.shaunfreeman.co.uk)
- * @license   see LICENSE.txt
+ * @license   see LICENSE
  */
 
 namespace UthandoThemeManager\View;
@@ -21,10 +21,10 @@ use UthandoCommon\View\AbstractViewHelper;
 class ThemePath extends AbstractViewHelper
 {
     public function __invoke($file = null)
-    {   
-    	if (null !== $file) {
-    		$file = ltrim($file, '/');
-    	}
+    {
+        if (null !== $file) {
+            $file = ltrim($file, '/');
+        }
 
         $isAdmin = $this->getServiceLocator()
             ->getServiceLocator()
@@ -33,17 +33,17 @@ class ThemePath extends AbstractViewHelper
             ->getRouteMatch()
             ->getParam('is-admin');
 
-    	$config     = $this->getConfig('theme_manager');
-    	$theme      = ($isAdmin) ? $config['admin_theme'] : $config['default_theme'];
-    	
-    	$file = join('/', array(
-    		'themes',
-    	    $theme,
-    	    $file
-    	));
-    	
-    	$basePathHelper = $this->view->plugin('basepath');
-    
-    	return $basePathHelper($file);
+        $config = $this->getConfig('theme_manager');
+        $theme = ($isAdmin) ? $config['admin_theme'] : $config['default_theme'];
+
+        $file = join('/', array(
+            'themes',
+            $theme,
+            $file
+        ));
+
+        $basePathHelper = $this->view->plugin('basepath');
+
+        return $basePathHelper($file);
     }
 }

@@ -1,4 +1,14 @@
 <?php
+/**
+ * Uthando CMS (http://www.shaunfreeman.co.uk/)
+ *
+ * @package   UthandoThemeManager\Event
+ * @author    Shaun Freeman <shaun@shaunfreeman.co.uk>
+ * @link      https://github.com/uthando-cms for the canonical source repository
+ * @copyright Copyright (c) 2015 Shaun Freeman. (http://www.shaunfreeman.co.uk)
+ * @license   see LICENSE
+ */
+
 namespace UthandoThemeManager\Event;
 
 use Zend\EventManager\EventManagerInterface;
@@ -10,6 +20,11 @@ use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\Http\RouteMatch as HttpRouteMatch;
 use Zend\Http\Request;
 
+/**
+ * Class MvcListener
+ *
+ * @package UthandoThemeManager\Event
+ */
 class MvcListener implements ListenerAggregateInterface
 {
     use ListenerAggregateTrait;
@@ -25,20 +40,38 @@ class MvcListener implements ListenerAggregateInterface
 
     /**
      * @param MvcEvent $event
+     */
+    public function onDispatch(MvcEvent $event)
+    {
+        if (!$event->getRequest() instanceof Request) {
+            return;
+        }
+
+        $match = $event->getRouteMatch();
+
+        if (!$match instanceof RouteMatch) {
+            return;
+        }
+
+        $this->renderTheme($event);
+    }
+
+    /**
+     * @param MvcEvent $event
      * @return bool
      */
     public function renderTheme(MvcEvent $event)
     {
-        $sm             = $event->getApplication()->getServiceManager();
-        $appConfig      = $sm->get('config');
+        $sm = $event->getApplication()->getServiceManager();
+        $appConfig = $sm->get('config');
 
         if (isset($appConfig['theme_manager'])) {
-            $isAdmin        = $this->isAdmin($event);
-            $themeConfig    = $appConfig['theme_manager'];
-            $theme          = ($isAdmin) ? $themeConfig['admin_theme'] : $themeConfig['default_theme'];
-            $path           = $themeConfig['theme_path'];
-            $config         = null;
-            $configFile     = $path . $theme . '/config.php';
+            $isAdmin = $this->isAdmin($event);
+            $themeConfig = $appConfig['theme_manager'];
+            $theme = ($isAdmin) ? $themeConfig['admin_theme'] : $themeConfig['default_theme'];
+            $path = $themeConfig['theme_path'];
+            $config = null;
+            $configFile = $path . $theme . '/config.php';
 
             if (file_exists($configFile)) {
                 $config = include($configFile);
@@ -92,30 +125,12 @@ class MvcListener implements ListenerAggregateInterface
     /**
      * @param MvcEvent $event
      */
-    public function onDispatch(MvcEvent $event)
-    {
-        if (!$event->getRequest() instanceof Request) {
-        	return;
-        }
-        
-        $match = $event->getRouteMatch();
-        
-        if (!$match instanceof RouteMatch) {
-            return;
-        }
-        
-        $this->renderTheme($event);
-    }
-
-    /**
-     * @param MvcEvent $event
-     */
     public function onDispatchError(MvcEvent $event)
     {
         if (!$event->getRequest() instanceof Request) {
-        	return;
+            return;
         }
-    	
-    	$this->renderTheme($event);
+
+        $this->renderTheme($event);
     }
 }
