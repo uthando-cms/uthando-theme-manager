@@ -11,6 +11,7 @@
 
 namespace UthandoThemeManager\View;
 
+use UthandoCommon\Stdlib\StringUtils;
 use UthandoCommon\View\AbstractViewHelper;
 
 /**
@@ -34,9 +35,12 @@ class SocialLinks extends AbstractViewHelper
     public function render(array $links)
     {
         $html = "";
+        $urlHelper = $this->getView()->plugin('url');
 
         foreach ($links as $key => $value) {
-            /*<a href="" class="social fa fa-facebook"></a>*/
+            if (!StringUtils::startsWith($value, 'http')) {
+                $value = $urlHelper($value);
+            }
             $html .= '<a href="' . $value . '" class="social fa fa-' . $key . '"></a>' . PHP_EOL;
         }
 
