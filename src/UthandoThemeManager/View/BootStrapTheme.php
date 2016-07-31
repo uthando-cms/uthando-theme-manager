@@ -31,7 +31,7 @@ class BootStrapTheme extends AbstractViewHelper
 
     const GOOGLE_AJAX_API = '//ajax.googleapis.com';
     const JQUERY_PATH = 'ajax/libs/jquery';
-    const JQUERY_VERSION = '3.1.0';
+    const JQUERY_VERSION = '2.2.4';
     const JQUERY_JS = 'jquery.min.js';
 
     const FONT_AWESOME_CSS = 'css/font-awesome.css';
