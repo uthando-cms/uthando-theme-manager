@@ -22,61 +22,117 @@ use UthandoCommon\View\AbstractViewHelper;
 class SocialLinks extends AbstractViewHelper
 {
     /**
-     * @var string
+     * @var array
      */
-    protected $class = 'social fa fa-';
+    protected $attributes = [
+        'class' => 'social fa fa-%s',
+        'title' => '%s',
+    ];
 
     /**
-     * @param null|string $class
+     * @var string
+     */
+    protected $template = '<a href="%s" %s>%s</a>';
+
+    /**
+     * @var string
+     */
+    protected $iconElement = '';
+
+    /**
+     * @param null|array $attributes
      * @return string
      */
-    public function __invoke($class = null)
+    public function __invoke(array $attributes = null)
     {
-        $config = $this->getConfig('theme_manager');
-
-        if ($class) {
-            $this->setClass($class);
+        if ($attributes) {
+            $this->setAttributes($attributes);
         }
 
-        if (isset($config['social_links']) && is_array($config['social_links'])) {
-            return $this->render($config['social_links']);
-        }
-
-        return '';
+        return $this;
     }
 
     /**
-     * @param array $links
      * @return string
      */
-    public function render(array $links)
+    public function render()
     {
-        $html = "";
-        $urlHelper = $this->getView()->plugin('url');
+        $config = $this->getConfig('theme_manager');
+        $html   = "";
 
-        foreach ($links as $key => $value) {
-            if (!StringUtils::startsWith($value, 'http')) {
-                $value = $urlHelper($value);
+        if (isset($config['social_links']) && is_array($config['social_links'])) {
+            $links      = $config['social_links'];
+            $urlHelper  = $this->getView()->plugin('url');
+
+            foreach ($links as $key => $value) {
+                $attributes = '';
+
+                if (!StringUtils::startsWith($value, 'http')) {
+                    $value = $urlHelper($value);
+                }
+
+                foreach($this->getAttributes() as $attr => $val) {
+                    $attributes .= $attr . '="' . sprintf($val, $key) . '" ';
+                }
+
+                $html .= sprintf($this->getTemplate(), $value, $attributes, sprintf($this->getIconElement(), $key)) . PHP_EOL;
             }
-            $html .= '<a href="' . $value . '" class="social fa fa-' . $key . '"></a>' . PHP_EOL;
         }
 
         return $html;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getClass()
+    public function getAttributes()
     {
-        return $this->class;
+        return $this->attributes;
     }
 
     /**
-     * @param string $class
+     * @param array $class
+     * @return $this
      */
-    public function setClass($class)
+    public function setAttributes(array $class)
     {
-        $this->class = $class;
+        $this->attributes = array_merge($this->attributes, $class);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param $template
+     * @return $this
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIconElement()
+    {
+        return $this->iconElement;
+    }
+
+    /**
+     * @param $iconElement
+     * @return $this
+     */
+    public function setIconElement($iconElement)
+    {
+        $this->iconElement = $iconElement;
+        return $this;
     }
 } 
