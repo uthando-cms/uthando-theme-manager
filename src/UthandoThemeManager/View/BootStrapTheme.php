@@ -20,23 +20,28 @@ use UthandoCommon\View\AbstractViewHelper;
  */
 class BootStrapTheme extends AbstractViewHelper
 {
-    const BOOTSTRAP_VERSION = '3.3.7';
-    const BOOTSWATCH_VERSION = '3.3.7';
-    const BOOTSTRAP_PART = 'bootstrap';
-    const BOOTSWATCH_PART = 'bootswatch';
-    const BOOTSTRAP_CDN = '//maxcdn.bootstrapcdn.com';
-    const BOOTSTRAP_THEME_CSS = 'bootstrap-theme.min.css';
-    const BOOTSTRAP_CSS = 'bootstrap.min.css';
-    const BOOTSTRAP_JS = 'js/bootstrap.min.js';
+    const CLOUDFLARE_CDN        = '//cdnjs.cloudflare.com/ajax/libs';
 
-    const GOOGLE_AJAX_API = '//ajax.googleapis.com';
-    const JQUERY_PATH = 'ajax/libs/jquery';
-    const JQUERY_VERSION = '3.1.1';
-    const JQUERY_JS = 'jquery.min.js';
+    const BOOTSTRAP_VERSION     = '3.3.7';
+    const BOOTSTRAP_PART        = 'twitter-bootstrap';
+    const BOOTSTRAP_JS          = 'js/bootstrap.min.js';
+    const BOOTSTRAP_CSS         = 'bootstrap.min.css';
+    const BOOTSTRAP_THEME_CSS   = 'bootstrap-theme.min.css';
 
-    const FONT_AWESOME_CSS = 'css/font-awesome.css';
-    const FONT_AWESOME_PART = 'font-awesome';
-    const FONT_AWESOME_VERSION = '4.7.0';
+    const BOOTSWATCH_VERSION    = '3.3.7';
+    const BOOTSWATCH_PART       = 'bootswatch';
+
+    const FONT_AWESOME_VERSION  = '4.7.0';
+    const FONT_AWESOME_PART     = 'font-awesome';
+    const FONT_AWESOME_CSS      = 'css/font-awesome.css';
+
+    const JQUERY_VERSION        = '3.2.1';
+    const JQUERY_PATH           = 'jquery';
+    const JQUERY_JS             = 'jquery.min.js';
+
+    const JQUERY_UI_VERSION     = '1.12.1';
+    const JQUERY_UI_PATH        = 'jqueryui';
+    const JQUERY_UI_JS          = 'jquery-ui.min.js';
 
     protected $theme = 'default';
 
@@ -68,17 +73,17 @@ class BootStrapTheme extends AbstractViewHelper
         // assemble css and js files from cdn
         if ($options->getBootstrap()) {
 
-            $headlinkHelper()->offsetSetStylesheet(0, join('/', [
-                self::BOOTSTRAP_CDN,
-                self::BOOTSTRAP_PART,
-                self::BOOTSTRAP_VERSION,
-                'css',
-                self::BOOTSTRAP_CSS
-            ]), 'screen,print');
-
             if (!$options->getBootswatchTheme()) {
+                $headlinkHelper()->offsetSetStylesheet(0, join('/', [
+                    self::CLOUDFLARE_CDN,
+                    self::BOOTSTRAP_PART,
+                    self::BOOTSTRAP_VERSION,
+                    'css',
+                    self::BOOTSTRAP_CSS
+                ]), 'screen,print');
+
                 $headlinkHelper()->offsetSetStylesheet(1, join('/', [
-                    self::BOOTSTRAP_CDN,
+                    self::CLOUDFLARE_CDN,
                     self::BOOTSTRAP_PART,
                     self::BOOTSTRAP_VERSION,
                     'css',
@@ -88,7 +93,7 @@ class BootStrapTheme extends AbstractViewHelper
             } else {
 
                 $headlinkHelper()->offsetSetStylesheet(0, join('/', [
-                    self::BOOTSTRAP_CDN,
+                    self::CLOUDFLARE_CDN,
                     self::BOOTSWATCH_PART,
                     self::BOOTSWATCH_VERSION,
                     $this->options->getBootswatchTheme(),
@@ -97,8 +102,8 @@ class BootStrapTheme extends AbstractViewHelper
             }
 
             //netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js
-            $headScriptHelper()->offsetSetFile(1, join('/', [
-                self::BOOTSTRAP_CDN,
+            $headScriptHelper()->offsetSetFile(2, join('/', [
+                self::CLOUDFLARE_CDN,
                 self::BOOTSTRAP_PART,
                 self::BOOTSTRAP_VERSION,
                 self::BOOTSTRAP_JS
@@ -107,7 +112,7 @@ class BootStrapTheme extends AbstractViewHelper
 
         if ($options->getFontAwesome()) {
             $headlinkHelper()->offsetSetStylesheet(2, join('/', [
-                self::BOOTSTRAP_CDN,
+                self::CLOUDFLARE_CDN,
                 self::FONT_AWESOME_PART,
                 self::FONT_AWESOME_VERSION,
                 self::FONT_AWESOME_CSS
@@ -118,11 +123,20 @@ class BootStrapTheme extends AbstractViewHelper
         //ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js
 
         $headScriptHelper()->offsetSetFile(0, join('/', [
-            self::GOOGLE_AJAX_API,
+            self::CLOUDFLARE_CDN,
             self::JQUERY_PATH,
             self::JQUERY_VERSION,
             self::JQUERY_JS
         ]));
+
+        if ($options->getJqueryUi()) {
+            $headScriptHelper()->offsetSetFile(1, join('/', [
+                self::CLOUDFLARE_CDN,
+                self::JQUERY_UI_PATH,
+                self::JQUERY_UI_VERSION,
+                self::JQUERY_UI_JS
+            ]));
+        }
     }
 
     /**

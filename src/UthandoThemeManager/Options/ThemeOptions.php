@@ -51,6 +51,11 @@ class ThemeOptions extends AbstractOptions
     protected $fontAwesome;
 
     /**
+     * @var bool
+     */
+    protected $jqueryUi;
+
+    /**
      * @return string $defaultTheme
      */
     public function getDefaultTheme()
@@ -149,11 +154,30 @@ class ThemeOptions extends AbstractOptions
     }
 
     /**
-     * @param boolean $fontAwesome
+     * @param $fontAwesome
+     * @return $this
      */
     public function setFontAwesome($fontAwesome)
     {
         $this->fontAwesome = $fontAwesome;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getJqueryUi()
+    {
+        return $this->jqueryUi;
+    }
+
+    /**
+     * @param $jqueryUi
+     * @return $this
+     */
+    public function setJqueryUi($jqueryUi)
+    {
+        $this->jqueryUi = $jqueryUi;
         return $this;
     }
 

@@ -7,6 +7,7 @@ return [
         'theme_path'        => './public/themes/',
         'bootstrap'         => true,
         'bootswatch_theme'  => null,
+        'jquery_ui'         => false,
         'font_awesome'      => true,
     ],
 ];
