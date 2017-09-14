@@ -16,11 +16,6 @@ return [
                 'ThemeManager' => './themes',
             ],
         ],
-        'filters' => [
-            'js' => [
-                ['filter' => \Assetic\Filter\JSMinFilter::class],
-            ],
-        ],
     ],
     'service_manager' => [
         'factories' => [
