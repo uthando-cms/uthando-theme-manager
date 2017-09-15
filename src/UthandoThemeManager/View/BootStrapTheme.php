@@ -33,7 +33,7 @@ class BootStrapTheme extends AbstractViewHelper
 
     const FONT_AWESOME_VERSION  = '4.7.0';
     const FONT_AWESOME_PART     = 'font-awesome';
-    const FONT_AWESOME_CSS      = 'css/font-awesome.css';
+    const FONT_AWESOME_CSS      = 'css/font-awesome.min.css';
 
     const JQUERY_VERSION        = '3.2.1';
     const JQUERY_PATH           = 'jquery';
