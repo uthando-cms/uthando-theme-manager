@@ -42,6 +42,7 @@ class BootStrapTheme extends AbstractViewHelper
     const JQUERY_UI_VERSION     = '1.12.1';
     const JQUERY_UI_PATH        = 'jqueryui';
     const JQUERY_UI_JS          = 'jquery-ui.min.js';
+    const JQUERY_UI_CSS         = 'jquery-ui.min.css';
 
     protected $theme = 'default';
 
@@ -135,6 +136,13 @@ class BootStrapTheme extends AbstractViewHelper
                 self::JQUERY_UI_PATH,
                 self::JQUERY_UI_VERSION,
                 self::JQUERY_UI_JS
+            ]));
+
+            $headlinkHelper()->offsetSetStylesheet(1, join('/', [
+                self::CLOUDFLARE_CDN,
+                self::JQUERY_UI_PATH,
+                self::JQUERY_UI_VERSION,
+                self::JQUERY_UI_CSS
             ]));
         }
     }
