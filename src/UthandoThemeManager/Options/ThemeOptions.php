@@ -20,25 +20,31 @@ use Zend\Stdlib\AbstractOptions;
 class ThemeOptions extends AbstractOptions
 {
     protected $__strictMode__ = false;
-    /**
-     * @var string
-     */
-    protected $defaultTheme;
 
     /**
      * @var string
      */
-    protected $adminTheme;
+    protected $siteName;
 
     /**
      * @var string
      */
-    protected $themePath;
+    protected $defaultTheme = 'default';
+
+    /**
+     * @var string
+     */
+    protected $adminTheme = 'admin';
+
+    /**
+     * @var string
+     */
+    protected $themePath = './themes';
 
     /**
      * @var bool
      */
-    protected $bootstrap;
+    protected $bootstrap = true;
 
     /**
      * @var string
@@ -48,12 +54,35 @@ class ThemeOptions extends AbstractOptions
     /**
      * @var bool
      */
-    protected $fontAwesome;
+    protected $fontAwesome = true;
 
     /**
      * @var bool
      */
-    protected $jqueryUi;
+    protected $jqueryUi = false;
+
+    /**
+     * @var array
+     */
+    protected $socialLinks = [];
+
+    /**
+     * @return string
+     */
+    public function getSiteName()
+    {
+        return $this->siteName;
+    }
+
+    /**
+     * @param string $siteName
+     * @return ThemeOptions
+     */
+    public function setSiteName($siteName)
+    {
+        $this->siteName = $siteName;
+        return $this;
+    }
 
     /**
      * @return string $defaultTheme
@@ -178,6 +207,24 @@ class ThemeOptions extends AbstractOptions
     public function setJqueryUi($jqueryUi)
     {
         $this->jqueryUi = $jqueryUi;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSocialLinks()
+    {
+        return $this->socialLinks;
+    }
+
+    /**
+     * @param array $socialLinks
+     * @return $this
+     */
+    public function setSocialLinks($socialLinks)
+    {
+        $this->socialLinks = $socialLinks;
         return $this;
     }
 

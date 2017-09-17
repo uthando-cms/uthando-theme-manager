@@ -33,8 +33,8 @@ class ThemePath extends AbstractViewHelper
             ->getRouteMatch()
             ->getParam('is-admin');
 
-        $config = $this->getConfig('theme_manager');
-        $theme = ($isAdmin) ? $config['admin_theme'] : $config['default_theme'];
+        $view = $this->getView();
+        $theme = ($isAdmin) ? $view->themeOptions('admin_theme') : $view->themeOptions('default_theme');
 
         $file = join('/', array(
             'themes',
@@ -42,8 +42,6 @@ class ThemePath extends AbstractViewHelper
             $file
         ));
 
-        $basePathHelper = $this->view->plugin('basepath');
-
-        return $basePathHelper($file);
+        return $this->getView()->basePath($file);
     }
 }

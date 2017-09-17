@@ -12,6 +12,7 @@
 namespace UthandoThemeManager\View;
 
 use UthandoCommon\View\AbstractViewHelper;
+use UthandoThemeManager\Options\ThemeOptions;
 
 /**
  * Class BootStrapTheme
@@ -47,7 +48,7 @@ class BootStrapTheme extends AbstractViewHelper
     protected $theme = 'default';
 
     /**
-     * @var \UthandoThemeManager\Options\ThemeOptions
+     * @var ThemeOptions
      */
     protected $options;
 
@@ -67,15 +68,13 @@ class BootStrapTheme extends AbstractViewHelper
 
     public function enable()
     {
-        $headlinkHelper = $this->view->plugin('headlink');
-        $headScriptHelper = $this->view->plugin('headscript');
-        $options = $this->getOptions();
+        $view = $this->getView();
 
         // assemble css and js files from cdn
-        if ($options->getBootstrap()) {
+        if ($view->themeOptions('bootstrap')) {
 
-            if (!$options->getBootswatchTheme()) {
-                $headlinkHelper()->offsetSetStylesheet(0, join('/', [
+            if (!$view->themeOptions('bootswatch_theme')) {
+                $view->headLink()->offsetSetStylesheet(0, join('/', [
                     self::CLOUDFLARE_CDN,
                     self::BOOTSTRAP_PART,
                     self::BOOTSTRAP_VERSION,
@@ -83,7 +82,7 @@ class BootStrapTheme extends AbstractViewHelper
                     self::BOOTSTRAP_CSS
                 ]), 'screen,print');
 
-                $headlinkHelper()->offsetSetStylesheet(1, join('/', [
+                $view->headLink()->offsetSetStylesheet(1, join('/', [
                     self::CLOUDFLARE_CDN,
                     self::BOOTSTRAP_PART,
                     self::BOOTSTRAP_VERSION,
@@ -93,17 +92,17 @@ class BootStrapTheme extends AbstractViewHelper
 
             } else {
 
-                $headlinkHelper()->offsetSetStylesheet(0, join('/', [
+                $view->headLink()->offsetSetStylesheet(0, join('/', [
                     self::CLOUDFLARE_CDN,
                     self::BOOTSWATCH_PART,
                     self::BOOTSWATCH_VERSION,
-                    $this->options->getBootswatchTheme(),
+                    $view->themeOptions('bootswatch_theme'),
                     self::BOOTSTRAP_CSS
                 ]), 'screen,print');
             }
 
             //netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js
-            $headScriptHelper()->offsetSetFile(2, join('/', [
+            $view->headScript()->offsetSetFile(2, join('/', [
                 self::CLOUDFLARE_CDN,
                 self::BOOTSTRAP_PART,
                 self::BOOTSTRAP_VERSION,
@@ -111,8 +110,8 @@ class BootStrapTheme extends AbstractViewHelper
             ]));
         }
 
-        if ($options->getFontAwesome()) {
-            $headlinkHelper()->offsetSetStylesheet(2, join('/', [
+        if ($view->themeOptions('font_awesome')) {
+            $view->headLink()->offsetSetStylesheet(2, join('/', [
                 self::CLOUDFLARE_CDN,
                 self::FONT_AWESOME_PART,
                 self::FONT_AWESOME_VERSION,
@@ -123,43 +122,28 @@ class BootStrapTheme extends AbstractViewHelper
         // JS
         //ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js
 
-        $headScriptHelper()->offsetSetFile(0, join('/', [
+        $view->headScript()->offsetSetFile(0, join('/', [
             self::CLOUDFLARE_CDN,
             self::JQUERY_PATH,
             self::JQUERY_VERSION,
             self::JQUERY_JS
         ]));
 
-        if ($options->getJqueryUi()) {
-            $headScriptHelper()->offsetSetFile(1, join('/', [
+        if ($view->themeOptions('jquery_ui')) {
+            $view->headScript()->offsetSetFile(1, join('/', [
                 self::CLOUDFLARE_CDN,
                 self::JQUERY_UI_PATH,
                 self::JQUERY_UI_VERSION,
                 self::JQUERY_UI_JS
             ]));
 
-            $headlinkHelper()->offsetSetStylesheet(1, join('/', [
+            $view->headLink()->offsetSetStylesheet(1, join('/', [
                 self::CLOUDFLARE_CDN,
                 self::JQUERY_UI_PATH,
                 self::JQUERY_UI_VERSION,
                 self::JQUERY_UI_CSS
             ]));
         }
-    }
-
-    /**
-     * @return \UthandoThemeManager\Options\ThemeOptions
-     */
-    public function getOptions()
-    {
-        if (!$this->options) {
-            $options = $this->getServiceLocator()
-                ->getServiceLocator()
-                ->get('UthandoThemeManager\Options\ThemeOptions');
-            $this->options = $options;
-        }
-
-        return $this->options;
     }
 
     public function getTheme()
@@ -172,5 +156,4 @@ class BootStrapTheme extends AbstractViewHelper
         $this->options->setDefaultTheme($theme);
         return $this;
     }
-
 }

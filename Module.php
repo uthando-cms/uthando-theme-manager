@@ -11,6 +11,8 @@
 
 namespace UthandoThemeManager;
 
+use UthandoCommon\Config\ConfigInterface;
+use UthandoCommon\Config\ConfigTrait;
 use Zend\Mvc\MvcEvent;
 use UthandoThemeManager\Event\MvcListener;
 
@@ -19,8 +21,10 @@ use UthandoThemeManager\Event\MvcListener;
  *
  * @package UthandoThemeManager
  */
-class Module
+class Module implements ConfigInterface
 {
+    use ConfigTrait;
+
     /**
      * @param MvcEvent $event
      */

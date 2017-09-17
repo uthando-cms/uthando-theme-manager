@@ -24,7 +24,7 @@ class ThemeOptionsFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $config = $serviceLocator->get('config');
-        $options = isset($config['theme_manager']) ? $config['theme_manager'] : [];
+        $options = isset($config['uthando_theme_manager']) ? $config['uthando_theme_manager'] : [];
 
         return new Options($options);
 

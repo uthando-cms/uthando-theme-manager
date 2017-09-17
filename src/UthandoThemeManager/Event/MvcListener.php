@@ -11,6 +11,7 @@
 
 namespace UthandoThemeManager\Event;
 
+use UthandoThemeManager\Options\ThemeOptions;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\ListenerAggregateTrait;
@@ -62,26 +63,22 @@ class MvcListener implements ListenerAggregateInterface
      */
     public function renderTheme(MvcEvent $event)
     {
-        $sm = $event->getApplication()->getServiceManager();
-        $appConfig = $sm->get('config');
+        $sm             = $event->getApplication()->getServiceManager();
+        /** @var ThemeOptions $themeOptions */
+        $themeOptions   = $sm->get(ThemeOptions::class);
+        $isAdmin        = $this->isAdmin($event);
+        $theme          = ($isAdmin) ? $themeOptions->getAdminTheme() : $themeOptions->getDefaultTheme();
+        $path           = $themeOptions->getThemePath();
+        $config         = null;
+        $configFile     = $path . $theme . '/config.php';
 
-        if (isset($appConfig['theme_manager'])) {
-            $isAdmin = $this->isAdmin($event);
-            $themeConfig = $appConfig['theme_manager'];
-            $theme = ($isAdmin) ? $themeConfig['admin_theme'] : $themeConfig['default_theme'];
-            $path = $themeConfig['theme_path'];
-            $config = null;
-            $configFile = $path . $theme . '/config.php';
+        if (file_exists($configFile)) {
+            $config = include($configFile);
+        }
 
-            if (file_exists($configFile)) {
-                $config = include($configFile);
-            }
-
-            if (isset($config['template_map'])) {
-                $viewResolverMap = $sm->get('ViewTemplateMapResolver');
-
-                $viewResolverMap->add($config['template_map']);
-            }
+        if (isset($config['template_map'])) {
+            $viewResolverMap = $sm->get('ViewTemplateMapResolver');
+            $viewResolverMap->add($config['template_map']);
         }
 
         return true;
