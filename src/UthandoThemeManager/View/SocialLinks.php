@@ -13,7 +13,6 @@ namespace UthandoThemeManager\View;
 
 use UthandoCommon\Stdlib\StringUtils;
 use UthandoCommon\View\AbstractViewHelper;
-use UthandoThemeManager\Options\ThemeOptions;
 
 /**
  * Class SocialLinks
@@ -58,11 +57,11 @@ class SocialLinks extends AbstractViewHelper
      */
     public function render()
     {
-        $options = $this->getOptions();
-        $html   = "";
+        $html       = '';
+        $socialLinks = $this->getView()->themeOptions('social_links');
 
-        if (!empty($options->getSocialLinks())) {
-            $links = $options->getSocialLinks();
+        if (!empty($socialLinks)) {
+            $links = $socialLinks;
 
             foreach ($links as $key => $value) {
                 $attributes = '';
@@ -134,20 +133,5 @@ class SocialLinks extends AbstractViewHelper
     {
         $this->iconElement = $iconElement;
         return $this;
-    }
-
-    /**
-     * @return ThemeOptions
-     */
-    public function getOptions()
-    {
-        if (!$this->options instanceof ThemeOptions) {
-            $options = $this->getServiceLocator()
-                ->getServiceLocator()
-                ->get(ThemeOptions::class);
-            $this->options = $options;
-        }
-
-        return $this->options;
     }
 } 

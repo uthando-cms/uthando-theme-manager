@@ -19,8 +19,6 @@ use Zend\Stdlib\AbstractOptions;
  */
 class ThemeOptions extends AbstractOptions
 {
-    protected $__strictMode__ = false;
-
     /**
      * @var string
      */
@@ -62,9 +60,9 @@ class ThemeOptions extends AbstractOptions
     protected $jqueryUi = false;
 
     /**
-     * @var array
+     * @var SocialLinksOptions
      */
-    protected $socialLinks = [];
+    protected $socialLinks;
 
     /**
      * @return string
@@ -147,8 +145,8 @@ class ThemeOptions extends AbstractOptions
     }
 
     /**
-     * @param unknown $bootstrap
-     * @return \UthandoThemeManager\Options\ThemeOptions
+     * @param $bootstrap
+     * @return $this
      */
     public function setBootstrap($bootstrap)
     {
@@ -165,8 +163,8 @@ class ThemeOptions extends AbstractOptions
     }
 
     /**
-     * @param unknown $bootswatchTheme
-     * @return \UthandoThemeManager\Options\ThemeOptions
+     * @param $bootswatchTheme
+     * @return $this
      */
     public function setBootswatchTheme($bootswatchTheme)
     {
@@ -219,11 +217,15 @@ class ThemeOptions extends AbstractOptions
     }
 
     /**
-     * @param array $socialLinks
+     * @param array|SocialLinksOptions $socialLinks
      * @return $this
      */
     public function setSocialLinks($socialLinks)
     {
+        if ($socialLinks instanceof SocialLinksOptions) {
+            $socialLinks = $socialLinks->toArray();
+        }
+
         $this->socialLinks = $socialLinks;
         return $this;
     }
