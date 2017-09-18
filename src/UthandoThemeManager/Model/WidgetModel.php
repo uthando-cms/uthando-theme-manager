@@ -13,7 +13,7 @@ namespace UthandoThemeManager\Model;
 use UthandoCommon\Model\Model;
 use UthandoCommon\Model\ModelInterface;
 
-class Widget implements ModelInterface
+class WidgetModel implements ModelInterface
 {
     use Model;
 
@@ -67,7 +67,7 @@ class Widget implements ModelInterface
 
     /**
      * @param int $widgetId
-     * @return Widget
+     * @return WidgetModel
      */
     public function setWidgetId($widgetId)
     {
@@ -85,7 +85,7 @@ class Widget implements ModelInterface
 
     /**
      * @param int $widgetGroupId
-     * @return Widget
+     * @return WidgetModel
      */
     public function setWidgetGroupId($widgetGroupId)
     {
@@ -103,7 +103,7 @@ class Widget implements ModelInterface
 
     /**
      * @param string $name
-     * @return Widget
+     * @return WidgetModel
      */
     public function setName($name)
     {
@@ -121,7 +121,7 @@ class Widget implements ModelInterface
 
     /**
      * @param int $sortOrder
-     * @return Widget
+     * @return WidgetModel
      */
     public function setSortOrder($sortOrder)
     {
@@ -139,7 +139,7 @@ class Widget implements ModelInterface
 
     /**
      * @param bool $showTitle
-     * @return Widget
+     * @return WidgetModel
      */
     public function setShowTitle($showTitle)
     {
@@ -157,7 +157,7 @@ class Widget implements ModelInterface
 
     /**
      * @param string $params
-     * @return Widget
+     * @return WidgetModel
      */
     public function setParams($params)
     {
@@ -175,7 +175,7 @@ class Widget implements ModelInterface
 
     /**
      * @param string $html
-     * @return Widget
+     * @return WidgetModel
      */
     public function setHtml($html)
     {
@@ -193,7 +193,7 @@ class Widget implements ModelInterface
 
     /**
      * @param bool $enabled
-     * @return Widget
+     * @return WidgetModel
      */
     public function setEnabled($enabled)
     {

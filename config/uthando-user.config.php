@@ -8,14 +8,14 @@ return [
                     'privileges' => [
                         'allow' => [
                             'controllers' => [
-                                \UthandoThemeManager\Controller\Settings::class   => ['action' => 'all'],
+                                \UthandoThemeManager\Controller\SettingsController::class   => ['action' => 'all'],
                             ],
                         ],
                     ],
                 ],
             ],
             'resources' => [
-                \UthandoThemeManager\Controller\Settings::class,
+                \UthandoThemeManager\Controller\SettingsController::class,
             ],
         ],
     ],

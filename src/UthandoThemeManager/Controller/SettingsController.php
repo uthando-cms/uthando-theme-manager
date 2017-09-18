@@ -11,16 +11,16 @@
 namespace UthandoThemeManager\Controller;
 
 use UthandoCommon\Controller\SettingsTrait;
-use UthandoThemeManager\View\ThemeOptionsHelper;
+use UthandoThemeManager\Options\ThemeOptions;
 use Zend\Mvc\Controller\AbstractActionController;
 
-class Settings extends AbstractActionController
+class SettingsController extends AbstractActionController
 {
     use SettingsTrait;
 
     public function __construct()
     {
-        $this->setFormName(ThemeOptionsHelper::class)
+        $this->setFormName(ThemeOptions::class)
             ->setConfigKey('uthando_theme_manager');
     }
 }

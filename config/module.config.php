@@ -1,5 +1,17 @@
 <?php
 
+use UthandoThemeManager\Controller\SettingsController;
+use UthandoThemeManager\Mapper\WidgetGroupMapper;
+use UthandoThemeManager\Mapper\WidgetMapper;
+use UthandoThemeManager\Model\WidgetGroupModel;
+use UthandoThemeManager\Model\WidgetModel;
+use UthandoThemeManager\Options\ThemeOptions;
+use UthandoThemeManager\Service\ThemeOptionsFactory;
+use UthandoThemeManager\View\BootStrapTheme;
+use UthandoThemeManager\View\SocialLinks;
+use UthandoThemeManager\View\ThemeOptionsHelper;
+use UthandoThemeManager\View\ThemePath;
+
 return [
     'asset_manager' => [
         'resolver_configs' => [
@@ -17,26 +29,32 @@ return [
     ],
     'controllers' => [
         'invokables' => [
-            \UthandoThemeManager\Controller\Settings::class => \UthandoThemeManager\Controller\Settings::class
+            SettingsController::class => SettingsController::class
         ],
+    ],
+    'uthando_mappers' => [
+        'invokables' => [
+            WidgetMapper::class         => WidgetMapper::class,
+            WidgetGroupMapper::class    => WidgetGroupMapper::class,
+        ]
     ],
     'uthando_models' => [
         'invokables' => [
-            'UthandoThemeManagerWidget'         => \UthandoThemeManager\Model\Widget::class,
-            'UthandoThemeManagerWidgetGroup'    => \UthandoThemeManager\Model\WidgetGroup::class,
+            WidgetModel::class          => WidgetModel::class,
+            WidgetGroupMapper::class    => WidgetGroupModel::class,
         ],
     ],
     'service_manager' => [
         'factories' => [
-            \UthandoThemeManager\Options\ThemeOptions::class => \UthandoThemeManager\Service\ThemeOptionsFactory::class
+            ThemeOptions::class => ThemeOptionsFactory::class
         ],
     ],
     'view_helpers' => [
         'invokables' => [
-            'Bootstrap'      => \UthandoThemeManager\View\BootStrapTheme::class,
-            'SocialLinks'    => \UthandoThemeManager\View\SocialLinks::class,
-            'ThemeOptions'   => \UthandoThemeManager\View\ThemeOptionsHelper::class,
-            'ThemePath'      => \UthandoThemeManager\View\ThemePath::class,
+            'Bootstrap'      => BootStrapTheme::class,
+            'SocialLinks'    => SocialLinks::class,
+            'ThemeOptions'   => ThemeOptionsHelper::class,
+            'ThemePath'      => ThemePath::class,
         ],
     ],
 ];

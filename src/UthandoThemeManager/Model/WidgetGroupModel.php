@@ -13,7 +13,7 @@ namespace UthandoThemeManager\Model;
 use UthandoCommon\Model\Model;
 use UthandoCommon\Model\ModelInterface;
 
-class WidgetGroup implements ModelInterface
+class WidgetGroupModel implements ModelInterface
 {
     use Model;
 
@@ -37,7 +37,7 @@ class WidgetGroup implements ModelInterface
 
     /**
      * @param int $widgetGroupId
-     * @return WidgetGroup
+     * @return WidgetGroupModel
      */
     public function setWidgetGroupId($widgetGroupId)
     {
@@ -55,7 +55,7 @@ class WidgetGroup implements ModelInterface
 
     /**
      * @param string $name
-     * @return WidgetGroup
+     * @return WidgetGroupModel
      */
     public function setName($name)
     {
