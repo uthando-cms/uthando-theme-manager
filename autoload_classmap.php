@@ -18,6 +18,7 @@ return array(
     'UthandoThemeManager\Mapper\WidgetGroupMapper'           => __DIR__ . '/src/UthandoThemeManager/Mapper/WidgetGroupMapper.php',
     'UthandoThemeManager\Mapper\WidgetMapper'                => __DIR__ . '/src/UthandoThemeManager/Mapper/WidgetMapper.php',
     'UthandoThemeManager\Form\Element\BootswatchSelect'      => __DIR__ . '/src/UthandoThemeManager/Form/Element/BootswatchSelect.php',
+    'UthandoThemeManager\Form\Element\WidgetGroupSelect'     => __DIR__ . '/src/UthandoThemeManager/Form/Element/WidgetGroupSelect.php',
     'UthandoThemeManager\Form\Element\ThemeSelect'           => __DIR__ . '/src/UthandoThemeManager/Form/Element/ThemeSelect.php',
     'UthandoThemeManager\Form\SocialLinksFieldSet'           => __DIR__ . '/src/UthandoThemeManager/Form/SocialLinksFieldSet.php',
     'UthandoThemeManager\Form\ThemeManagerSettingsForm'      => __DIR__ . '/src/UthandoThemeManager/Form/ThemeManagerSettingsForm.php',

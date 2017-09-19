@@ -17,6 +17,6 @@ class WidgetGroupController extends AbstractCrudController
 {
     protected $controllerSearchOverrides = ['sort' => 'widgetGroupId'];
     protected $serviceName = WidgetGroupManager::class;
-    protected $route = 'admin/theme-manager/widgetGroup';
+    protected $route = 'admin/theme-manager/widget-group';
     protected $routes = [];
 }

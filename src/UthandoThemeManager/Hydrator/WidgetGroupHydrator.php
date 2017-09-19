@@ -25,6 +25,9 @@ class WidgetGroupHydrator extends AbstractHydrator
      */
     public function extract($object)
     {
-        return [];
+        return [
+            'widgetGroupId' => $object->getWidgetGroupId(),
+            'name'          => $object->getName(),
+        ];
     }
 }

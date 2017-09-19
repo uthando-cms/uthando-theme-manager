@@ -33,6 +33,11 @@ class WidgetModel implements ModelInterface
     protected $name;
 
     /**
+     * @var string
+     */
+    protected $widget;
+
+    /**
      * @var int
      */
     protected $sortOrder;
@@ -108,6 +113,24 @@ class WidgetModel implements ModelInterface
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWidget()
+    {
+        return $this->widget;
+    }
+
+    /**
+     * @param string $widget
+     * @return WidgetModel
+     */
+    public function setWidget($widget)
+    {
+        $this->widget = $widget;
         return $this;
     }
 

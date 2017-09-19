@@ -1,0 +1,45 @@
+<?php if (count($this->models) > 0): ?>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered table-condensed">
+            <thead>
+            <tr>
+                <th data-field="widgetId">Widget Id</th>
+                <th data-field="name">Name</th>
+                <th data-field="widget">Widget</th>
+                <th data-field="dateCreated">Sort Order</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php /* @var $row \UthandoThemeManager\Model\WidgetModel */ ?>
+            <?php foreach($this->models as $row): ?>
+                <tr>
+                    <td><?=$this->escapeHtml($row->getWidgetId()); ?></td>
+                    <td><?=$this->escapeHtml($row->getName()); ?></td>
+                    <td><?=$this->escapeHtml($row->getWidget());?></td>
+                    <td><?=$this->escapeHtml($row->getSortOrder()); ?></td>
+                    <td>
+                        <?=$this->partial('uthando-admin/partial/edit-actions', [
+                            'pk'		=> 'postId',
+                            'id'		=> $row->getWidgetId(),
+                            'tableName'	=> 'post',
+                            'route'		=> 'admin/theme-manager/widget/edit',
+                        ]);?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <?=$this->paginationControl(
+        $this->models,
+        'Elastic',
+        'application/partial/paginate',
+        ['route' => 'admin/theme-manager/widget/page']
+    ); ?>
+
+<?php else: ?>
+    <h4>There are no Widgets yet.</h4>
+<?php endif; ?>

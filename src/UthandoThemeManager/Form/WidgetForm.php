@@ -14,5 +14,8 @@ use Zend\Form\Form;
 
 class WidgetForm extends Form
 {
+    public function init()
+    {
 
+    }
 }

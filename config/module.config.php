@@ -5,6 +5,7 @@ use UthandoThemeManager\Controller\WidgetController;
 use UthandoThemeManager\Controller\WidgetGroupController;
 use UthandoThemeManager\Form\Element\BootswatchSelect;
 use UthandoThemeManager\Form\Element\ThemeSelect;
+use UthandoThemeManager\Form\Element\WidgetGroupSelect;
 use UthandoThemeManager\Form\SocialLinksFieldSet;
 use UthandoThemeManager\Form\ThemeManagerSettingsForm;
 use UthandoThemeManager\Form\WidgetForm;
@@ -38,6 +39,7 @@ return [
         'invokables' => [
             BootswatchSelect::class             => BootswatchSelect::class,
             ThemeSelect::class                  => ThemeSelect::class,
+            WidgetGroupSelect::class            => WidgetGroupSelect::class,
             SocialLinksFieldSet::class          => SocialLinksFieldSet::class,
             ThemeManagerSettingsForm::class     => ThemeManagerSettingsForm::class,
             WidgetForm::class                   => WidgetForm::class,

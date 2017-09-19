@@ -16,7 +16,6 @@ use UthandoThemeManager\Model\WidgetModel;
 
 class WidgetHydrator extends AbstractHydrator
 {
-
     /**
      * Extract values from an object
      *
@@ -26,7 +25,15 @@ class WidgetHydrator extends AbstractHydrator
     public function extract($object)
     {
         return [
-
+            'widgetId'          => $object->getWidgetId(),
+            'widgetGroupId'     => $object->getWidgetGroupId(),
+            'name'              => $object->getName(),
+            'widget'            => $object->getWidget(),
+            'sortOrder'         => $object->getSortOrder(),
+            'showTitle'         => $object->isShowTitle(),
+            'params'            => $object->getParams(),
+            'html'              => $object->getHtml(),
+            'enabled'           => $object->isEnabled(),
         ];
     }
 }
