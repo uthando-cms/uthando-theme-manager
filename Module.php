@@ -13,6 +13,8 @@ namespace UthandoThemeManager;
 
 use UthandoCommon\Config\ConfigInterface;
 use UthandoCommon\Config\ConfigTrait;
+use UthandoThemeManager\Event\ConfigListener;
+use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\MvcEvent;
 use UthandoThemeManager\Event\MvcListener;
 
@@ -24,6 +26,15 @@ use UthandoThemeManager\Event\MvcListener;
 class Module implements ConfigInterface
 {
     use ConfigTrait;
+
+    public function init(ModuleManager $moduleManager)
+    {
+        /* @var $sm \Zend\ServiceManager\ServiceManager */
+        $sm = $moduleManager->getEvent()->getParam('ServiceManager');
+        $serviceListener = $sm->get('ServiceListener');
+        $events = $moduleManager->getEventManager();
+        $events->attach(new ConfigListener());
+    }
 
     /**
      * @param MvcEvent $event

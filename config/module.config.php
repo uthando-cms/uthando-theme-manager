@@ -25,19 +25,6 @@ use UthandoThemeManager\View\ThemeOptionsHelper;
 use UthandoThemeManager\View\ThemePath;
 
 return [
-    'asset_manager' => [
-        'resolver_configs' => [
-            'collections' => [
-                'js/uthando.js' => [
-                ],
-                'css/uthando.css' => [
-                ],
-            ],
-            'paths' => [
-                'ThemeManager' => './themes',
-            ],
-        ],
-    ],
     'controllers' => [
         'invokables' => [
             SettingsController::class       => SettingsController::class,

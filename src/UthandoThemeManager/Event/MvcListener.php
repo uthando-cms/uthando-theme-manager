@@ -70,7 +70,7 @@ class MvcListener implements ListenerAggregateInterface
         $theme          = ($isAdmin) ? $themeOptions->getAdminTheme() : $themeOptions->getDefaultTheme();
         $path           = $themeOptions->getThemePath();
         $config         = null;
-        $configFile     = $path . $theme . '/config.php';
+        $configFile     = join(DIRECTORY_SEPARATOR, [$path, $theme, 'config.php']);
 
         if (file_exists($configFile)) {
             $config = include($configFile);

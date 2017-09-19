@@ -21,6 +21,7 @@ return array(
     'UthandoThemeManager\Form\ThemeManagerSettingsForm'      => __DIR__ . '/src/UthandoThemeManager/Form/ThemeManagerSettingsForm.php',
     'UthandoThemeManager\Form\WidgetForm'                    => __DIR__ . '/src/UthandoThemeManager/Form/WidgetForm.php',
     'UthandoThemeManager\Form\WidgetGroupForm'               => __DIR__ . '/src/UthandoThemeManager/Form/WidgetGroupForm.php',
+    'UthandoThemeManager\Event\ConfigListener'               => __DIR__ . '/src/UthandoThemeManager/Event/ConfigListener.php',
     'UthandoThemeManager\Event\MvcListener'                  => __DIR__ . '/src/UthandoThemeManager/Event/MvcListener.php',
     'UthandoThemeManager\Hydrator\WidgetGroupHydrator'       => __DIR__ . '/src/UthandoThemeManager/Hydrator/WidgetGroupHydrator.php',
     'UthandoThemeManager\Hydrator\WidgetHydrator'            => __DIR__ . '/src/UthandoThemeManager/Hydrator/WidgetHydrator.php',
