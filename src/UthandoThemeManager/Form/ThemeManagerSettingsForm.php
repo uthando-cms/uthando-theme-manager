@@ -11,9 +11,10 @@
 namespace UthandoThemeManager\Form;
 
 use TwbBundle\Form\View\Helper\TwbBundleForm;
+use UthandoThemeManager\Form\Element\BootswatchSelect;
+use UthandoThemeManager\Form\Element\ThemeSelect;
 use UthandoThemeManager\Options\ThemeOptions;
 use Zend\Filter\Boolean;
-use Zend\Filter\Dir;
 use Zend\Filter\StringTrim;
 use Zend\Filter\StripTags;
 use Zend\Filter\ToNull;
@@ -51,7 +52,7 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
 
         $this->add([
             'name'      => 'default_theme',
-            'type'      => Text::class,
+            'type'      => ThemeSelect::class,
             'options'   => [
                 'label'             => 'Theme',
                 'twb-layout'        => TwbBundleForm::LAYOUT_HORIZONTAL,
@@ -64,7 +65,7 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
 
         $this->add([
             'name'      => 'admin_theme',
-            'type'      => Text::class,
+            'type'      => ThemeSelect::class,
             'options'   => [
                 'label'             => 'Admin Theme',
                 'twb-layout'        => TwbBundleForm::LAYOUT_HORIZONTAL,
@@ -103,7 +104,7 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
 
         $this->add([
             'name'      => 'bootswatch_theme',
-            'type'      => Text::class,
+            'type'      => BootswatchSelect::class,
             'options'   => [
                 'label'             => 'Bootswatch Theme',
                 'twb-layout'        => TwbBundleForm::LAYOUT_HORIZONTAL,
@@ -147,16 +148,12 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
                 'class' => 'col-md-12',
             ],
             'options' => [
-                //'use_as_base_fieldset' => true,
                 'label' => 'Social Links',
             ],
         ]);
     }
 
     /**
-     * Should return an array specification compatible with
-     * {@link Zend\InputFilter\Factory::createInputFilter()}.
-     *
      * @return array
      */
     public function getInputFilterSpecification()
@@ -177,10 +174,11 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
                 ],
             ],
             'default_theme' => [
-                'required' => true,
+                'required' => false,
                 'filters' => [
                     ['name' => StringTrim::class],
                     ['name' => StripTags::class,],
+                    ['name' => ToNull::class],
                 ],
                 'validators' => [
                     ['name' => StringLength::class, 'options' => [
@@ -191,10 +189,11 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
                 ],
             ],
             'admin_theme' => [
-                'required' => true,
+                'required' => false,
                 'filters' => [
                     ['name' => StringTrim::class],
                     ['name' => StripTags::class,],
+                    ['name' => ToNull::class],
                 ],
                 'validators' => [
                     ['name' => StringLength::class, 'options' => [
