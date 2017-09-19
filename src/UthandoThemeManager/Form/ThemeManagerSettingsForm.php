@@ -12,11 +12,17 @@ namespace UthandoThemeManager\Form;
 
 use TwbBundle\Form\View\Helper\TwbBundleForm;
 use UthandoThemeManager\Options\ThemeOptions;
+use Zend\Filter\Boolean;
+use Zend\Filter\Dir;
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
+use Zend\Filter\ToNull;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Text;
 use Zend\Form\Form;
 use Zend\Hydrator\ClassMethods;
 use Zend\InputFilter\InputFilterProviderInterface;
+use Zend\Validator\StringLength;
 
 class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterface
 {
@@ -155,6 +161,102 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
      */
     public function getInputFilterSpecification()
     {
-        return [];
+        return [
+            'site_name' => [
+                'required' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                ],
+                'validators' => [
+                    ['name' => StringLength::class, 'options' => [
+                        'encoding' => 'UTF-8',
+                        'min'      => 2,
+                        'max'      => 255,
+                    ]],
+                ],
+            ],
+            'default_theme' => [
+                'required' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                ],
+                'validators' => [
+                    ['name' => StringLength::class, 'options' => [
+                        'encoding' => 'UTF-8',
+                        'min'      => 2,
+                        'max'      => 255,
+                    ]],
+                ],
+            ],
+            'admin_theme' => [
+                'required' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                ],
+                'validators' => [
+                    ['name' => StringLength::class, 'options' => [
+                        'encoding' => 'UTF-8',
+                        'min'      => 2,
+                        'max'      => 255,
+                    ]],
+                ],
+            ],
+            'theme_path' => [
+                'required' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                ],
+                'validators' => [
+                    ['name' => StringLength::class, 'options' => [
+                        'encoding' => 'UTF-8',
+                        'min'      => 1,
+                        'max'      => 255,
+                    ]],
+                ],
+            ],
+            'bootstrap' => [
+                'required' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                    ['name' => Boolean::class],
+                ],
+            ],
+            'bootswatch_theme' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                    ['name' => ToNull::class],
+                ],
+                'validators' => [
+                    ['name' => StringLength::class, 'options' => [
+                        'encoding' => 'UTF-8',
+                        'min'      => 2,
+                        'max'      => 255,
+                    ]],
+                ],
+            ],
+            'font_awesome' => [
+                'required' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                    ['name' => Boolean::class],
+                ],
+            ],
+            'jquery_ui' => [
+                'required' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                    ['name' => Boolean::class],
+                ],
+            ],
+        ];
     }
 }

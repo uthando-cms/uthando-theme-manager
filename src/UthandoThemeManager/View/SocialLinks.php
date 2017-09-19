@@ -64,6 +64,9 @@ class SocialLinks extends AbstractViewHelper
             $links = $socialLinks;
 
             foreach ($links as $key => $value) {
+
+                if (!$value) continue;
+
                 $attributes = '';
 
                 if (!StringUtils::startsWith($value, 'http')) {

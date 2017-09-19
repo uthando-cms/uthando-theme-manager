@@ -10,13 +10,16 @@
 
 namespace UthandoThemeManager\Form;
 
-
 use TwbBundle\Form\View\Helper\TwbBundleForm;
 use UthandoThemeManager\Options\SocialLinksOptions;
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
+use Zend\Filter\ToNull;
 use Zend\Form\Element\Text;
 use Zend\Form\Fieldset;
 use Zend\Hydrator\ClassMethods;
 use Zend\InputFilter\InputFilterProviderInterface;
+use Zend\Validator\StringLength;
 
 class SocialLinksFieldSet extends Fieldset implements InputFilterProviderInterface
 {
@@ -72,6 +75,52 @@ class SocialLinksFieldSet extends Fieldset implements InputFilterProviderInterfa
 
     public function getInputFilterSpecification()
     {
-        return [];
+        return [
+            'facebook' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                    ['name' => ToNull::class],
+                ],
+                'validators' => [
+                    ['name' => StringLength::class, 'options' => [
+                        'encoding' => 'UTF-8',
+                        'min'      => 2,
+                        'max'      => 255,
+                    ]],
+                ],
+            ],
+            'twitter' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                    ['name' => ToNull::class],
+                ],
+                'validators' => [
+                    ['name' => StringLength::class, 'options' => [
+                        'encoding' => 'UTF-8',
+                        'min'      => 2,
+                        'max'      => 255,
+                    ]],
+                ],
+                'rss' => [
+                    'required' => false,
+                    'filters' => [
+                        ['name' => StringTrim::class],
+                        ['name' => StripTags::class,],
+                        ['name' => ToNull::class],
+                    ],
+                    'validators' => [
+                        ['name' => StringLength::class, 'options' => [
+                            'encoding' => 'UTF-8',
+                            'min'      => 2,
+                            'max'      => 255,
+                        ]],
+                    ],
+                ],
+            ],
+        ];
     }
 }
