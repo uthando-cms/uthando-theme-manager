@@ -205,7 +205,7 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
                 ],
             ],
             'theme_path' => [
-                'required' => true,
+                'required' => false,
                 'filters' => [
                     ['name' => StringTrim::class],
                     ['name' => StripTags::class,],

@@ -37,7 +37,6 @@ class ThemePath extends AbstractViewHelper
         $theme = ($isAdmin) ? $view->themeOptions('admin_theme') : $view->themeOptions('default_theme');
 
         $file = join('/', array(
-            'themes',
             $theme,
             $file
         ));

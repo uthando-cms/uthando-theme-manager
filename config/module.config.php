@@ -31,7 +31,6 @@ return [
                 'js/uthando.js' => [
                 ],
                 'css/uthando.css' => [
-                    'default/assets/css/styles.css',
                 ],
             ],
             'paths' => [
