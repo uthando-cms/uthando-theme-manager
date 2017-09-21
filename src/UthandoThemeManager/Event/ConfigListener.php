@@ -34,7 +34,7 @@ class ConfigListener implements ListenerAggregateInterface
     {
         $configListener     = $event->getConfigListener();
         $config             = $configListener->getMergedConfig(false);
-        $loadThemePath      = $config['asset_manager']['resolver_configs']['paths']['ThemeManager'] ?: false;
+        $loadThemePath      = isset($config['asset_manager']['resolver_configs']['paths']['ThemeManager']) ?: false;
 
         if (false !== $loadThemePath) return $this;
 
