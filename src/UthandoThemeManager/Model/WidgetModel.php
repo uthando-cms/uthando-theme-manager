@@ -30,6 +30,11 @@ class WidgetModel implements ModelInterface
     /**
      * @var string
      */
+    protected $title;
+
+    /**
+     * @var string
+     */
     protected $name;
 
     /**
@@ -61,6 +66,11 @@ class WidgetModel implements ModelInterface
      * @var bool
      */
     protected $enabled;
+
+    /**
+     * @var WidgetGroupModel
+     */
+    protected $group;
 
     /**
      * @return int
@@ -95,6 +105,24 @@ class WidgetModel implements ModelInterface
     public function setWidgetGroupId($widgetGroupId)
     {
         $this->widgetGroupId = $widgetGroupId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     * @return WidgetModel
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
         return $this;
     }
 
@@ -221,6 +249,24 @@ class WidgetModel implements ModelInterface
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
+        return $this;
+    }
+
+    /**
+     * @return WidgetGroupModel
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * @param WidgetGroupModel $group
+     * @return WidgetModel
+     */
+    public function setGroup($group)
+    {
+        $this->group = $group;
         return $this;
     }
 }

@@ -15,8 +15,8 @@ use UthandoThemeManager\Form\WidgetForm;
 use UthandoThemeManager\Hydrator\WidgetHydrator;
 use UthandoThemeManager\InputFilter\WidgetInputFilter;
 use UthandoThemeManager\Mapper\WidgetMapper;
-use UthandoThemeManager\Model\WidgetGroupModel;
 use UthandoThemeManager\Model\WidgetModel;
+use Zend\EventManager\Event;
 
 class WidgetManager extends AbstractRelationalMapperService
 {
@@ -25,10 +25,32 @@ class WidgetManager extends AbstractRelationalMapperService
     protected $inputFilter  = WidgetInputFilter::class;
     protected $mapper       = WidgetMapper::class;
     protected $model        = WidgetModel::class;
+
     protected $referenceMap = [
-        WidgetGroupModel::class => [
+        'group' => [
             'refCol'    => 'widgetGroupId',
             'service'   => WidgetGroupManager::class,
         ],
     ];
+
+    protected $tags = [
+        'widget',
+    ];
+
+    public function attachEvents()
+    {
+        $this->getEventManager()->attach(self::EVENT_PRE_ADD, [$this, 'setValidation']);
+        $this->getEventManager()->attach(self::EVENT_PRE_EDIT, [$this, 'setValidation']);
+    }
+
+    public function setValidation(Event $event)
+    {
+        $form       = $event->getParam('form');
+        $model      = $event->getParam('model', new WidgetModel());
+        $exclude    = $model->getName() ?: '';
+
+        /* @var WidgetInputFilter $inputFilter */
+        $inputFilter = $form->getInputFilter();
+        $inputFilter->noRecordExists('name', 'widget', 'name', $exclude);
+    }
 }

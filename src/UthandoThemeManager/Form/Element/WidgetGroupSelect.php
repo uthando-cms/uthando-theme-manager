@@ -10,7 +10,6 @@
 
 namespace UthandoThemeManager\Form\Element;
 
-
 use UthandoThemeManager\Model\WidgetGroupModel;
 use UthandoThemeManager\Service\WidgetGroupManager;
 use Zend\Form\Element\Select;
@@ -20,8 +19,6 @@ use Zend\ServiceManager\ServiceLocatorAwareTrait;
 class WidgetGroupSelect extends Select implements ServiceLocatorAwareInterface
 {
     use ServiceLocatorAwareTrait;
-
-    protected $emptyOption = '---Select a group---';
 
     public function setOptions($options)
     {
@@ -34,7 +31,7 @@ class WidgetGroupSelect extends Select implements ServiceLocatorAwareInterface
 
     public function getValueOptions()
     {
-        $options = $this->valueOptions ?? $this->getOptionList();
+        $options = $this->valueOptions ?: $this->getOptionList();
         return $options;
     }
 
@@ -49,7 +46,12 @@ class WidgetGroupSelect extends Select implements ServiceLocatorAwareInterface
         $widgetGroupManager->getMapper();
         $groups = $widgetGroupManager->fetchAll();
 
-        $groupOptions = [];
+        $groupOptions = [
+            [
+                'label' => 'Unassigned',
+                'value' => 0,
+            ]
+        ];
 
         /* @var $group WidgetGroupModel */
         foreach($groups as $group) {

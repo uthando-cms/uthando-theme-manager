@@ -16,6 +16,7 @@ use UthandoThemeManager\Hydrator\WidgetGroupHydrator;
 use UthandoThemeManager\InputFilter\WidgetGroupInputFilter;
 use UthandoThemeManager\Mapper\WidgetGroupMapper;
 use UthandoThemeManager\Model\WidgetGroupModel;
+use Zend\EventManager\Event;
 
 class WidgetGroupManager extends AbstractMapperService
 {
@@ -24,4 +25,25 @@ class WidgetGroupManager extends AbstractMapperService
     protected $inputFilter  = WidgetGroupInputFilter::class;
     protected $mapper       = WidgetGroupMapper::class;
     protected $model        = WidgetGroupModel::class;
+
+    protected $tags = [
+        'widget', 'widget-group',
+    ];
+
+    public function attachEvents(): void
+    {
+        $this->getEventManager()->attach(self::EVENT_PRE_ADD, [$this, 'setValidation']);
+        $this->getEventManager()->attach(self::EVENT_PRE_EDIT, [$this, 'setValidation']);
+    }
+
+    public function setValidation(Event $event): void
+    {
+        $form       = $event->getParam('form');
+        $model      = $event->getParam('model', new WidgetGroupModel());
+        $exclude    = $model->getName() ?: '';
+
+        /* @var WidgetGroupInputFilter $inputFilter */
+        $inputFilter = $form->getInputFilter();
+        $inputFilter->noRecordExists('name', 'widgetGroup', 'name', $exclude);
+    }
 }

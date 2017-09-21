@@ -12,10 +12,20 @@ namespace UthandoThemeManager\Hydrator;
 
 
 use UthandoCommon\Hydrator\AbstractHydrator;
+use UthandoCommon\Hydrator\Strategy\NullStrategy;
+use UthandoCommon\Hydrator\Strategy\TrueFalse;
 use UthandoThemeManager\Model\WidgetModel;
 
 class WidgetHydrator extends AbstractHydrator
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->addStrategy('bool', new TrueFalse());
+        $this->addStrategy('null', new NullStrategy());
+    }
+
     /**
      * Extract values from an object
      *
@@ -26,14 +36,15 @@ class WidgetHydrator extends AbstractHydrator
     {
         return [
             'widgetId'          => $object->getWidgetId(),
-            'widgetGroupId'     => $object->getWidgetGroupId(),
+            'widgetGroupId'     => $this->extractValue('null', $object->getWidgetGroupId()),
+            'title'             => $object->getTitle(),
             'name'              => $object->getName(),
             'widget'            => $object->getWidget(),
             'sortOrder'         => $object->getSortOrder(),
-            'showTitle'         => $object->isShowTitle(),
+            'showTitle'         => $this->extractValue('bool', $object->isShowTitle()),
             'params'            => $object->getParams(),
             'html'              => $object->getHtml(),
-            'enabled'           => $object->isEnabled(),
+            'enabled'           => $this->extractValue('bool', $object->isEnabled()),
         ];
     }
 }

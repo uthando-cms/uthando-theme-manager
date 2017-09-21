@@ -97,7 +97,6 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
                 'use_hidden_element' => true,
                 'checked_value' => '1',
                 'unchecked_value' => '0',
-                'required' 		=> false,
                 'column-size' => 'md-10 col-md-offset-2',
             ],
         ]);
@@ -123,7 +122,6 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
                 'use_hidden_element' => true,
                 'checked_value' => '1',
                 'unchecked_value' => '0',
-                'required' 		=> false,
                 'column-size' => 'md-10 col-md-offset-2',
             ],
         ]);
@@ -136,7 +134,6 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
                 'use_hidden_element' => true,
                 'checked_value' => '1',
                 'unchecked_value' => '0',
-                'required' 		=> false,
                 'column-size' => 'md-10 col-md-offset-2',
             ],
         ]);

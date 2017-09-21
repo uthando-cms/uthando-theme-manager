@@ -10,7 +10,6 @@
 
 namespace UthandoThemeManager\Form\Element;
 
-
 use UthandoThemeManager\Options\ThemeOptions;
 use Zend\Form\Element\Select;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;

@@ -17,7 +17,7 @@
                     <td><?=$this->escapeHtml($row->getName()); ?></td>
                     <td>
                         <?=$this->partial('uthando-admin/partial/edit-actions', [
-                            'pk'		=> 'postId',
+                            'pk'		=> 'widgetGroupId',
                             'id'		=> $row->getWidgetGroupId(),
                             'tableName'	=> 'post',
                             'route'		=> 'admin/theme-manager/widget-group/edit',

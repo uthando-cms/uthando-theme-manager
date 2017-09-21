@@ -30,19 +30,13 @@ class MvcListener implements ListenerAggregateInterface
 {
     use ListenerAggregateTrait;
 
-    /**
-     * @param EventManagerInterface $events
-     */
     public function attach(EventManagerInterface $events)
     {
         $this->listeners[] = $events->attach(MvcEvent::EVENT_ROUTE, [$this, 'onDispatch']);
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, [$this, 'onDispatchError']);
     }
 
-    /**
-     * @param MvcEvent $event
-     */
-    public function onDispatch(MvcEvent $event)
+    public function onDispatch(MvcEvent $event): void
     {
         if (!$event->getRequest() instanceof Request) {
             return;
@@ -57,10 +51,6 @@ class MvcListener implements ListenerAggregateInterface
         $this->renderTheme($event);
     }
 
-    /**
-     * @param MvcEvent $event
-     * @return bool
-     */
     public function renderTheme(MvcEvent $event)
     {
         $sm             = $event->getApplication()->getServiceManager();
@@ -84,10 +74,6 @@ class MvcListener implements ListenerAggregateInterface
         return true;
     }
 
-    /**
-     * @param MvcEvent $event
-     * @return bool
-     */
     public function isAdmin(MvcEvent $event)
     {
         $routeMatch = $event->getRouteMatch();
@@ -116,12 +102,9 @@ class MvcListener implements ListenerAggregateInterface
             }
         }
 
-        return $event->getRouteMatch()->getParam('is-admin');
+        return $event->getRouteMatch()->getParam('is-admin') ?: false;
     }
 
-    /**
-     * @param MvcEvent $event
-     */
     public function onDispatchError(MvcEvent $event)
     {
         if (!$event->getRequest() instanceof Request) {

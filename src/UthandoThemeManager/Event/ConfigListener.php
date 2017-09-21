@@ -34,11 +34,11 @@ class ConfigListener implements ListenerAggregateInterface
     {
         $configListener     = $event->getConfigListener();
         $config             = $configListener->getMergedConfig(false);
-        $loadThemePath      = $config['asset_manager']['resolver_configs']['paths']['ThemeManager'] ?? false;
+        $loadThemePath      = $config['asset_manager']['resolver_configs']['paths']['ThemeManager'] ?: false;
 
         if (false !== $loadThemePath) return $this;
 
-        $themePath = $config['uthando_theme_manager']['theme_path'] ?? null;
+        $themePath = $config['uthando_theme_manager']['theme_path'] ?: null;
         $assetManager['asset_manager']['resolver_configs']['paths']['ThemeManager'] = $themePath;
 
         $config = ArrayUtils::merge($config, $assetManager);
