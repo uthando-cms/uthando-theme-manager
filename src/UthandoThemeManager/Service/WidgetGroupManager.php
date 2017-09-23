@@ -30,13 +30,13 @@ class WidgetGroupManager extends AbstractMapperService
         'widget', 'widget-group',
     ];
 
-    public function attachEvents(): void
+    public function attachEvents()
     {
         $this->getEventManager()->attach(self::EVENT_PRE_ADD, [$this, 'setValidation']);
         $this->getEventManager()->attach(self::EVENT_PRE_EDIT, [$this, 'setValidation']);
     }
 
-    public function setValidation(Event $event): void
+    public function setValidation(Event $event)
     {
         $form       = $event->getParam('form');
         $model      = $event->getParam('model', new WidgetGroupModel());

@@ -36,7 +36,7 @@ class MvcListener implements ListenerAggregateInterface
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, [$this, 'onDispatchError']);
     }
 
-    public function onDispatch(MvcEvent $event): void
+    public function onDispatch(MvcEvent $event)
     {
         if (!$event->getRequest() instanceof Request) {
             return;
