@@ -2,8 +2,8 @@
 return [
     'modules' => [
         'Application',
-        'UthandoThemeManager',
         'UthandoCommon',
+        'UthandoThemeManager',
     ],
     'module_listener_options' => [
         'module_paths' => [
