@@ -6,6 +6,7 @@ use UthandoThemeManager\Controller\WidgetGroupController;
 use UthandoThemeManager\Form\Element\BootswatchSelect;
 use UthandoThemeManager\Form\Element\ThemeSelect;
 use UthandoThemeManager\Form\Element\WidgetGroupSelect;
+use UthandoThemeManager\Form\Element\WidgetSelect;
 use UthandoThemeManager\Form\SocialLinksFieldSet;
 use UthandoThemeManager\Form\ThemeManagerSettingsForm;
 use UthandoThemeManager\Form\WidgetForm;
@@ -26,6 +27,11 @@ use UthandoThemeManager\View\BootStrapTheme;
 use UthandoThemeManager\View\SocialLinks;
 use UthandoThemeManager\View\ThemeOptionsHelper;
 use UthandoThemeManager\View\ThemePath;
+use UthandoThemeManager\View\WidgetGroupHelper;
+use UthandoThemeManager\Widget\Html;
+use UthandoThemeManager\Widget\Content;
+use UthandoThemeManager\Widget\LayoutDefault;
+use UthandoThemeManager\Widget\Search;
 
 return [
     'controllers' => [
@@ -40,6 +46,7 @@ return [
             BootswatchSelect::class             => BootswatchSelect::class,
             ThemeSelect::class                  => ThemeSelect::class,
             WidgetGroupSelect::class            => WidgetGroupSelect::class,
+            WidgetSelect::class                 => WidgetSelect::class,
             SocialLinksFieldSet::class          => SocialLinksFieldSet::class,
             ThemeManagerSettingsForm::class     => ThemeManagerSettingsForm::class,
             WidgetForm::class                   => WidgetForm::class,
@@ -83,10 +90,16 @@ return [
     ],
     'view_helpers' => [
         'invokables' => [
-            'Bootstrap'      => BootStrapTheme::class,
-            'SocialLinks'    => SocialLinks::class,
-            'ThemeOptions'   => ThemeOptionsHelper::class,
-            'ThemePath'      => ThemePath::class,
+            'Bootstrap'     => BootStrapTheme::class,
+            'SocialLinks'   => SocialLinks::class,
+            'ThemeOptions'  => ThemeOptionsHelper::class,
+            'ThemePath'     => ThemePath::class,
+            'WidgetGroup'   => WidgetGroupHelper::class,
+
+            Html::class             => Html::class,
+            Content::class          => Content::class,
+            LayoutDefault::class    => LayoutDefault::class,
+            Search::class           => Search::class,
         ],
     ],
     'view_manager'  => [

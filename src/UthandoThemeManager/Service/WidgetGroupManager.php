@@ -10,7 +10,7 @@
 
 namespace UthandoThemeManager\Service;
 
-use UthandoCommon\Service\AbstractMapperService;
+use UthandoCommon\Service\AbstractRelationalMapperService;
 use UthandoThemeManager\Form\WidgetGroupForm;
 use UthandoThemeManager\Hydrator\WidgetGroupHydrator;
 use UthandoThemeManager\InputFilter\WidgetGroupInputFilter;
@@ -18,13 +18,26 @@ use UthandoThemeManager\Mapper\WidgetGroupMapper;
 use UthandoThemeManager\Model\WidgetGroupModel;
 use Zend\EventManager\Event;
 
-class WidgetGroupManager extends AbstractMapperService
+/**
+ * Class WidgetGroupManager
+ * @package UthandoThemeManager\Service
+ * @method WidgetGroupMapper getMapper($mapperClass = null, array $options = [])
+ */
+class WidgetGroupManager extends AbstractRelationalMapperService
 {
     protected $form         = WidgetGroupForm::class;
     protected $hydrator     = WidgetGroupHydrator::class;
     protected $inputFilter  = WidgetGroupInputFilter::class;
     protected $mapper       = WidgetGroupMapper::class;
     protected $model        = WidgetGroupModel::class;
+
+    protected $referenceMap = [
+        'widgets' => [
+            'refCol'    => 'widgetGroupId',
+            'getMethod' => 'getWidgetsByGroupId',
+            'service'   => WidgetManager::class,
+        ],
+    ];
 
     protected $tags = [
         'widget', 'widget-group',
@@ -45,5 +58,28 @@ class WidgetGroupManager extends AbstractMapperService
         /* @var WidgetGroupInputFilter $inputFilter */
         $inputFilter = $form->getInputFilter();
         $inputFilter->noRecordExists('name', 'widgetGroup', 'name', $exclude);
+    }
+
+    /**
+     * @param $name
+     * @return WidgetGroupModel|null
+     */
+    public function getWidgetGroupByName($name)
+    {
+        $widgetGroup = $this->getCacheItem($name);
+
+        if (!$widgetGroup) {
+            $widgetGroup = $this->getMapper()->getWidgetGroupByName($name);
+
+            if ($widgetGroup instanceof WidgetGroupModel) {
+                $this->populate($widgetGroup, true);
+            }
+
+            if ($this->useCache) {
+                $this->setCacheItem($name, $widgetGroup);
+            }
+        }
+
+        return $widgetGroup;
     }
 }

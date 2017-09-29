@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -12,9 +12,15 @@ namespace UthandoThemeManager\Form\Element;
 
 use UthandoThemeManager\Options\ThemeOptions;
 use Zend\Form\Element\Select;
+use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
 
+/**
+ * Class ThemeSelect
+ * @package UthandoThemeManager\Form\Element
+ * @method AbstractPluginManager getServiceLocator()
+ */
 class ThemeSelect extends Select implements ServiceLocatorAwareInterface
 {
     use ServiceLocatorAwareTrait;

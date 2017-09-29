@@ -73,6 +73,15 @@ class WidgetModel implements ModelInterface
     protected $group;
 
     /**
+     * @return array|bool
+     */
+    public function parseParams()
+    {
+        $params = parse_ini_string($this->getParams(), true);
+        return $params;
+    }
+
+    /**
      * @return int
      */
     public function getWidgetId()

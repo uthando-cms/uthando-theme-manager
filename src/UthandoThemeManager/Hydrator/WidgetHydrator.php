@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -27,12 +27,10 @@ class WidgetHydrator extends AbstractHydrator
     }
 
     /**
-     * Extract values from an object
-     *
      * @param  WidgetModel $object
      * @return array
      */
-    public function extract($object)
+    public function extract($object): array
     {
         return [
             'widgetId'          => $object->getWidgetId(),

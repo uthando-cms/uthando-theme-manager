@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -10,7 +10,10 @@
 
 namespace UthandoThemeManager\Event;
 
-
+use Assetic\Filter\CssMinFilter;
+use Assetic\Filter\JSMinFilter;
+use AssetManager\Cache\FilePathCache;
+use UthandoThemeManager\Options\ThemeOptions;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\ListenerAggregateTrait;
@@ -26,23 +29,40 @@ class ConfigListener implements ListenerAggregateInterface
         $this->listeners[] = $events->attach(ModuleEvent::EVENT_MERGE_CONFIG, [$this, 'onMergeConfig'], 1);
     }
 
-    /**
-     * @param ModuleEvent $event
-     * @return ConfigListener
-     */
-    public function onMergeConfig(ModuleEvent $event)
+    public function onMergeConfig(ModuleEvent $event): ConfigListener
     {
         $configListener     = $event->getConfigListener();
         $config             = $configListener->getMergedConfig(false);
-        $loadThemePath      = isset($config['asset_manager']['resolver_configs']['paths']['ThemeManager']) ?: false;
+        $options            = new ThemeOptions($config['uthando_theme_manager'] ?? []);
+        $assetManager       = [];
 
-        if (false !== $loadThemePath) return $this;
+        if ($options->getCache()) {
+            $assetManager['asset_manager']['caching']['default'] = [
+                'cache' => FilePathCache::class,
+                'options' => [
+                    'dir' => $options->getPublicDir(),
+                ],
+            ];
+        }
 
-        $themePath = $config['uthando_theme_manager']['theme_path'] ?: null;
-        $assetManager['asset_manager']['resolver_configs']['paths']['ThemeManager'] = $themePath;
+        if ($options->isCompressCss()) {
+            $assetManager['asset_manager']['filters']['css'][] = [
+                'filter' => CssMinFilter::class,
+            ];
+        }
+
+        if ($options->isCompressCss()) {
+            $assetManager['asset_manager']['filters']['js'][] = [
+                'filter' => JSMinFilter::class,
+            ];
+        }
+
+        if ($options->getThemePath()) {
+            $assetManager['asset_manager']['resolver_configs']['paths']['ThemeManager'] = $options->getThemePath();
+        }
 
         $config = ArrayUtils::merge($config, $assetManager);
-        // Pass the changed configuration back to the listener:
+
         $configListener->setMergedConfig($config);
 
         return $this;

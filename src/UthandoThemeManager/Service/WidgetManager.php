@@ -18,6 +18,11 @@ use UthandoThemeManager\Mapper\WidgetMapper;
 use UthandoThemeManager\Model\WidgetModel;
 use Zend\EventManager\Event;
 
+/**
+ * Class WidgetManager
+ * @package UthandoThemeManager\Service
+ * @method WidgetMapper getMapper($mapperClass = null, array $options = [])
+ */
 class WidgetManager extends AbstractRelationalMapperService
 {
     protected $form         = WidgetForm::class;
@@ -34,7 +39,7 @@ class WidgetManager extends AbstractRelationalMapperService
     ];
 
     protected $tags = [
-        'widget',
+        'widget', 'widgetGroup'
     ];
 
     public function attachEvents()
@@ -52,5 +57,31 @@ class WidgetManager extends AbstractRelationalMapperService
         /* @var WidgetInputFilter $inputFilter */
         $inputFilter = $form->getInputFilter();
         $inputFilter->noRecordExists('name', 'widget', 'name', $exclude);
+    }
+
+    /**
+     * @param $name
+     * @return WidgetModel|null
+     */
+    public function getWidgetByName($name)
+    {
+        $widget = $this->getMapper()->getWidgetByName($name);
+
+        if ($widget instanceof WidgetModel) {
+            $this->populate($widget, true);
+        }
+
+        return $widget;
+    }
+
+    public function getWidgetsByGroupId($id)
+    {
+        $widgets = $this->getMapper()->getWidgetsByGroupId($id);
+
+        foreach ($widgets as $widget) {
+            $this->populate($widget, true);
+        }
+
+        return $widgets;
     }
 }

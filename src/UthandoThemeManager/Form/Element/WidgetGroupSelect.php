@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -13,9 +13,15 @@ namespace UthandoThemeManager\Form\Element;
 use UthandoThemeManager\Model\WidgetGroupModel;
 use UthandoThemeManager\Service\WidgetGroupManager;
 use Zend\Form\Element\Select;
+use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
 
+/**
+ * Class WidgetGroupSelect
+ * @package UthandoThemeManager\Form\Element
+ * @method AbstractPluginManager getServiceLocator()
+ */
 class WidgetGroupSelect extends Select implements ServiceLocatorAwareInterface
 {
     use ServiceLocatorAwareTrait;
@@ -29,13 +35,13 @@ class WidgetGroupSelect extends Select implements ServiceLocatorAwareInterface
         }
     }
 
-    public function getValueOptions()
+    public function getValueOptions(): array
     {
         $options = $this->valueOptions ?: $this->getOptionList();
         return $options;
     }
 
-    public function getOptionList()
+    public function getOptionList(): array
     {
         /** @var WidgetGroupManager $widgetGroupManager */
         $widgetGroupManager = $this->getServiceLocator()

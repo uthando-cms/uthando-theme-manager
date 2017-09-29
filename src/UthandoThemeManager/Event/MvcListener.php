@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -15,11 +15,11 @@ use UthandoThemeManager\Options\ThemeOptions;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\ListenerAggregateTrait;
+use Zend\Http\PhpEnvironment\Request;
 use Zend\Mvc\MvcEvent;
 use Zend\Permissions\Acl\Role\RoleInterface;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\Http\RouteMatch as HttpRouteMatch;
-use Zend\Http\Request;
 
 /**
  * Class MvcListener
@@ -39,19 +39,23 @@ class MvcListener implements ListenerAggregateInterface
     public function onDispatch(MvcEvent $event)
     {
         if (!$event->getRequest() instanceof Request) {
-            return;
+            return null;
         }
 
         $match = $event->getRouteMatch();
 
         if (!$match instanceof RouteMatch) {
-            return;
+            return null;
         }
 
         $this->renderTheme($event);
     }
 
-    public function renderTheme(MvcEvent $event)
+    /**
+     * @param MvcEvent $event
+     * @return bool
+     */
+    public function renderTheme(MvcEvent $event): bool
     {
         $sm             = $event->getApplication()->getServiceManager();
         /** @var ThemeOptions $themeOptions */
@@ -63,6 +67,7 @@ class MvcListener implements ListenerAggregateInterface
         $configFile     = join(DIRECTORY_SEPARATOR, [$path, $theme, 'config.php']);
 
         if (file_exists($configFile)) {
+            /** @noinspection PhpIncludeInspection */
             $config = include($configFile);
         }
 
@@ -74,17 +79,23 @@ class MvcListener implements ListenerAggregateInterface
         return true;
     }
 
-    public function isAdmin(MvcEvent $event)
+    /**
+     * @param MvcEvent $event
+     * @return bool
+     */
+    public function isAdmin(MvcEvent $event): bool
     {
         $routeMatch = $event->getRouteMatch();
 
         if (!$routeMatch instanceof RouteMatch) {
 
             $event->setRouteMatch(new HttpRouteMatch([]));
+
+            /** @var Request $request */
             $request = $event->getRequest();
             $requestUri = $request->getRequestUri();
 
-            $auth = (isset($_SESSION['Zend_Auth'])) ? $_SESSION['Zend_Auth'] : null;
+            $auth = $_SESSION['Zend_Auth'] ?? null;
             if ($auth && $auth->storage instanceof RoleInterface) {
                 $role = $auth->storage->getRoleId();
             } else {
@@ -102,15 +113,15 @@ class MvcListener implements ListenerAggregateInterface
             }
         }
 
-        return $event->getRouteMatch()->getParam('is-admin') ?: false;
+        return $event->getRouteMatch()->getParam('is-admin') ?? false;
     }
 
-    public function onDispatchError(MvcEvent $event)
+    public function onDispatchError(MvcEvent $event): bool
     {
         if (!$event->getRequest() instanceof Request) {
-            return;
+            return false;
         }
 
-        $this->renderTheme($event);
+        return $this->renderTheme($event);
     }
 }

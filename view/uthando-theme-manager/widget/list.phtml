@@ -6,8 +6,10 @@
             <tr>
                 <th data-field="widgetId">Widget Id</th>
                 <th data-field="title">Title</th>
+                <th data-field="name">Name</th>
+                <th data-field="group">Group</th>
                 <th data-field="widget">Widget</th>
-                <th data-field="dateCreated">Sort Order</th>
+                <th data-field="sortOrder">Sort Order</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -17,6 +19,8 @@
                 <tr>
                     <td><?=$this->escapeHtml($row->getWidgetId()); ?></td>
                     <td><?=$this->escapeHtml($row->getTitle()); ?></td>
+                    <td><?=$this->escapeHtml($row->getName()); ?></td>
+                    <td><?=$this->escapeHtml($row->getGroup()->getName()); ?></td>
                     <td><?=$this->escapeHtml($row->getWidget());?></td>
                     <td><?=$this->escapeHtml($row->getSortOrder()); ?></td>
                     <td>

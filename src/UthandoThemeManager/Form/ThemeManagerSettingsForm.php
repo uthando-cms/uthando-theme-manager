@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -90,6 +90,19 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
         ]);
 
         $this->add([
+            'name'      => 'public_dir',
+            'type'      => Text::class,
+            'options'   => [
+                'label'             => 'Public HTML Directory',
+                'twb-layout'        => TwbBundleForm::LAYOUT_HORIZONTAL,
+                'column-size'       => 'md-10',
+                'label_attributes'  => [
+                    'class' => 'col-md-2',
+                ],
+            ],
+        ]);
+
+        $this->add([
             'name'			=> 'bootstrap',
             'type'			=> Checkbox::class,
             'options'		=> [
@@ -139,6 +152,42 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
         ]);
 
         $this->add([
+            'name'			=> 'cache',
+            'type'			=> Checkbox::class,
+            'options'		=> [
+                'label'			=> 'Cache Theme Assets',
+                'use_hidden_element' => true,
+                'checked_value' => '1',
+                'unchecked_value' => '0',
+                'column-size' => 'md-10 col-md-offset-2',
+            ],
+        ]);
+
+        $this->add([
+            'name'			=> 'compress_javascript',
+            'type'			=> Checkbox::class,
+            'options'		=> [
+                'label'			=> 'Compress JavaScript',
+                'use_hidden_element' => true,
+                'checked_value' => '1',
+                'unchecked_value' => '0',
+                'column-size' => 'md-10 col-md-offset-2',
+            ],
+        ]);
+
+        $this->add([
+            'name'			=> 'compress_css',
+            'type'			=> Checkbox::class,
+            'options'		=> [
+                'label'			=> 'Compress CSS',
+                'use_hidden_element' => true,
+                'checked_value' => '1',
+                'unchecked_value' => '0',
+                'column-size' => 'md-10 col-md-offset-2',
+            ],
+        ]);
+
+        $this->add([
             'type' => SocialLinksFieldSet::class,
             'name' => 'social_links',
             'attributes' => [
@@ -148,12 +197,18 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
                 'label' => 'Social Links',
             ],
         ]);
+
+        // load in default values
+        $defaultOptions = $this->getObject()->toArray();
+
+        foreach ($defaultOptions as $key => $value) {
+            if ($this->has($key)) {
+                $this->get($key)->setValue($value);
+            }
+        }
     }
 
-    /**
-     * @return array
-     */
-    public function getInputFilterSpecification()
+    public function getInputFilterSpecification(): array
     {
         return [
             'site_name' => [
@@ -214,8 +269,23 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
                     ]],
                 ],
             ],
-            'bootstrap' => [
+            'public_dir' => [
                 'required' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                ],
+                'validators' => [
+                    ['name' => StringLength::class, 'options' => [
+                        'encoding' => 'UTF-8',
+                        'min'      => 1,
+                        'max'      => 255,
+                    ]],
+                ],
+            ],
+            'bootstrap' => [
+                'required' => false,
+                'allow_empty' => true,
                 'filters' => [
                     ['name' => StringTrim::class],
                     ['name' => StripTags::class,],
@@ -238,7 +308,35 @@ class ThemeManagerSettingsForm extends Form implements InputFilterProviderInterf
                 ],
             ],
             'font_awesome' => [
-                'required' => true,
+                'required' => false,
+                'allow_empty' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                    ['name' => Boolean::class],
+                ],
+            ],
+            'cache' => [
+                'required' => false,
+                'allow_empty' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                    ['name' => Boolean::class],
+                ],
+            ],
+            'compress_javascript' => [
+                'required' => false,
+                'allow_empty' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class,],
+                    ['name' => Boolean::class],
+                ],
+            ],
+            'compress_css' => [
+                'required' => false,
+                'allow_empty' => true,
                 'filters' => [
                     ['name' => StringTrim::class],
                     ['name' => StripTags::class,],

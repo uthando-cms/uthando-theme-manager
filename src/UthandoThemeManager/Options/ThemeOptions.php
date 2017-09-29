@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -32,12 +32,17 @@ class ThemeOptions extends AbstractOptions
     /**
      * @var string
      */
-    protected $adminTheme = 'admin';
+    protected $adminTheme = 'default';
 
     /**
      * @var string
      */
     protected $themePath = './themes';
+
+    /**
+     * @var string
+     */
+    protected $publicDir = './public';
 
     /**
      * @var bool
@@ -60,7 +65,22 @@ class ThemeOptions extends AbstractOptions
     protected $jqueryUi = false;
 
     /**
-     * @var SocialLinksOptions
+     * @var bool
+     */
+    protected $cache = false;
+
+    /**
+     * @var bool
+     */
+    protected $compressJavascript = false;
+
+    /**
+     * @var bool
+     */
+    protected $compressCss = false;
+
+    /**
+     * @var array
      */
     protected $socialLinks;
 
@@ -137,6 +157,24 @@ class ThemeOptions extends AbstractOptions
     }
 
     /**
+     * @return string
+     */
+    public function getPublicDir()
+    {
+        return $this->publicDir;
+    }
+
+    /**
+     * @param string $publicDir
+     * @return ThemeOptions
+     */
+    public function setPublicDir(string $publicDir)
+    {
+        $this->publicDir = $publicDir;
+        return $this;
+    }
+
+    /**
      * @return bool $bootstrap
      */
     public function getBootstrap()
@@ -205,6 +243,60 @@ class ThemeOptions extends AbstractOptions
     public function setJqueryUi($jqueryUi)
     {
         $this->jqueryUi = $jqueryUi;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getCache(): bool
+    {
+        return $this->cache;
+    }
+
+    /**
+     * @param bool $cache
+     * @return ThemeOptions
+     */
+    public function setCache(bool $cache): ThemeOptions
+    {
+        $this->cache = $cache;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCompressJavascript(): bool
+    {
+        return $this->compressJavascript;
+    }
+
+    /**
+     * @param bool $compressJavascript
+     * @return ThemeOptions
+     */
+    public function setCompressJavascript(bool $compressJavascript): ThemeOptions
+    {
+        $this->compressJavascript = $compressJavascript;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCompressCss(): bool
+    {
+        return $this->compressCss;
+    }
+
+    /**
+     * @param bool $compressCss
+     * @return ThemeOptions
+     */
+    public function setCompressCss(bool $compressCss): ThemeOptions
+    {
+        $this->compressCss = $compressCss;
         return $this;
     }
 

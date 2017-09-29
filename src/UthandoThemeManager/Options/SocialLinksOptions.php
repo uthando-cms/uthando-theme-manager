@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -41,7 +41,7 @@ class SocialLinksOptions extends AbstractOptions
      * @param string $facebook
      * @return SocialLinksOptions
      */
-    public function setFacebook($facebook)
+    public function setFacebook(string $facebook): SocialLinksOptions
     {
         $this->facebook = $facebook;
         return $this;
@@ -59,7 +59,7 @@ class SocialLinksOptions extends AbstractOptions
      * @param string $twitter
      * @return SocialLinksOptions
      */
-    public function setTwitter($twitter)
+    public function setTwitter(string $twitter): SocialLinksOptions
     {
         $this->twitter = $twitter;
         return $this;
@@ -77,11 +77,9 @@ class SocialLinksOptions extends AbstractOptions
      * @param string $rss
      * @return SocialLinksOptions
      */
-    public function setRss(string $rss)
+    public function setRss(string $rss): SocialLinksOptions
     {
         $this->rss = $rss;
         return $this;
     }
-
-
 }

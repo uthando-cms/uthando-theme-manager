@@ -1,0 +1,18 @@
+<?php
+/** @var \UthandoThemeManager\Model\WidgetModel $widget */
+$widget = $this->widget;
+$params = $widget->parseParams();
+$action = $params['action'] ?? '';
+?>
+<form action="<?=$this->url($this->escapeHtml($action));?>" method="post">
+    <div class="input-group">
+        <input type="search" placeholder="Start Searching..." id="search" name="search" class="form-control">
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
+<hr>

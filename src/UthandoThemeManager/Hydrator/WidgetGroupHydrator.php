@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -10,20 +10,16 @@
 
 namespace UthandoThemeManager\Hydrator;
 
-
 use UthandoCommon\Hydrator\AbstractHydrator;
 use UthandoThemeManager\Model\WidgetGroupModel;
 
 class WidgetGroupHydrator extends AbstractHydrator
 {
-
     /**
-     * Extract values from an object
-     *
-     * @param  WidgetGroupModel $object
+     * @param WidgetGroupModel $object
      * @return array
      */
-    public function extract($object)
+    public function extract($object): array
     {
         return [
             'widgetGroupId' => $object->getWidgetGroupId(),

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -12,6 +12,7 @@ namespace UthandoThemeManager\Form;
 
 use TwbBundle\Form\View\Helper\TwbBundleForm;
 use UthandoThemeManager\Form\Element\WidgetGroupSelect;
+use UthandoThemeManager\Form\Element\WidgetSelect;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Hidden;
 use Zend\Form\Element\Number;
@@ -74,7 +75,7 @@ class WidgetForm extends Form
         ]);
 
         $this->add([
-            'type'  => Text::class,
+            'type'  => WidgetSelect::class,
             'name'  => 'widget',
             'options'   => [
                 'label' => 'Widget',
@@ -126,6 +127,21 @@ class WidgetForm extends Form
             'attributes'    => [
                 'rows'  => 5,
             ]
+        ]);
+
+        $this->add([
+            'type'  => Checkbox::class,
+            'name'  => 'summernote_enable',
+            'options'   => [
+                'label' => 'Toggle Summernote',
+                'twb-layout'    => TwbBundleForm::LAYOUT_HORIZONTAL,
+                'checked_value' => 1,
+                'column-size'   => 'md-10 col-md-offset-2',
+            ],
+            'attributes'    => [
+                'id' => 'toggle-summernote',
+                'checked' => true,
+            ],
         ]);
 
         $this->add([

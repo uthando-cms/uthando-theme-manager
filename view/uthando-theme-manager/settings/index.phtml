@@ -2,6 +2,9 @@
 <?php $this->layout()->pageTitle = $this->translate('Theme Manager Settings');?>
 
 <?php $this->placeholder('header-buttons')->captureStart();?>
+<a href="<?=$this->url('admin/theme-manager/settings/reset-cache');?>" data-toggle="tooltip" title="<?=$this->translate('Reset Asset Cache');?>" class="btn btn-danger">
+    <i class="fa fa-trash"></i>
+</a>
 <button type="submit" form="form-theme-manager" data-toggle="tooltip" title="<?=$this->translate('Save');?>" class="btn btn-primary">
     <i class="fa fa-save"></i>
 </button>

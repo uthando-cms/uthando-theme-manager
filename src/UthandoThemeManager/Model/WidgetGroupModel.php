@@ -28,6 +28,11 @@ class WidgetGroupModel implements ModelInterface
     protected $name;
 
     /**
+     * @var array
+     */
+    protected $widgets = [];
+
+    /**
      * @return int
      */
     public function getWidgetGroupId()
@@ -60,6 +65,24 @@ class WidgetGroupModel implements ModelInterface
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getWidgets()
+    {
+        return $this->widgets;
+    }
+
+    /**
+     * @param array $widgets
+     * @return WidgetGroupModel
+     */
+    public function setWidgets($widgets)
+    {
+        $this->widgets = $widgets;
         return $this;
     }
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -11,9 +11,21 @@
 namespace UthandoThemeManager\Mapper;
 
 use UthandoCommon\Mapper\AbstractDbMapper;
+use UthandoThemeManager\Model\WidgetGroupModel;
 
 class WidgetGroupMapper extends AbstractDbMapper
 {
     protected $table = 'widgetGroup';
     protected $primary = 'widgetGroupId';
+
+    public function getWidgetGroupByName(string $name)
+    {
+        $select = $this->getSelect();
+        $select->where->equalTo('name', $name);
+
+        $rowSet = $this->fetchResult($select);
+        $row = $rowSet->current();
+
+        return $row;
+    }
 }

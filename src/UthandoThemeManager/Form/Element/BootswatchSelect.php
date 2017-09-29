@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -9,7 +9,6 @@
  */
 
 namespace UthandoThemeManager\Form\Element;
-
 
 use Zend\Form\Element\Select;
 use Zend\Json\Json;

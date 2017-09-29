@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Uthando CMS (http://www.shaunfreeman.co.uk/)
  *
@@ -146,6 +146,7 @@ class WidgetInputFilter extends InputFilter implements ServiceLocatorAwareInterf
             'validators' => [
                 ['name' => StringLength::class, 'options' => [
                     'encoding'  => 'UTF-8',
+                    'max'       => 1000,
                 ]],
             ],
         ]);
@@ -159,6 +160,7 @@ class WidgetInputFilter extends InputFilter implements ServiceLocatorAwareInterf
             'validators' => [
                 ['name' => StringLength::class, 'options' => [
                     'encoding'  => 'UTF-8',
+                    'max'       => 5000,
                 ]],
             ],
         ]);

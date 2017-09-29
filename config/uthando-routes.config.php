@@ -121,6 +121,18 @@ return [
                                     ]
                                 ],
                                 'may_terminate' => true,
+                                'child_routes' => [
+                                    'reset-cache' => [
+                                        'type' => 'Literal',
+                                        'options' => [
+                                            'route' => '/reset-cache',
+                                            'defaults' => [
+                                                'action' => 'reset-cache',
+                                                'force-ssl' => 'ssl'
+                                            ],
+                                        ],
+                                    ],
+                                ],
                             ],
                         ],
                     ],
