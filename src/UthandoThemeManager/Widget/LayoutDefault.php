@@ -18,20 +18,20 @@ class LayoutDefault extends AbstractViewHelper
 {
     use WidgetGroupServiceTrait;
 
-    public function __invoke(WidgetModel $widget): string
+    public function __invoke(WidgetModel $widgetModel): string
     {
-        $widgetGroup    = $this->getWidgetGroupService()->getWidgetGroupByName($widget->getName());
+        $widgetGroup    = $this->getWidgetGroupService()->getWidgetGroupByName($widgetModel->getName());
         $view           = $this->getView();
-        $params         = $widget->parseParams();
+        $params         = $widgetModel->parseParams();
         $class          = $params['class'] ?? '';
         $html           = '<div class="' . $view->escapeHtml($class) . '">';
 
-        /** @var WidgetModel $widget */
-        foreach ($widgetGroup->getWidgets() as $widget) {
-            $widgetClass = $view->escapeHtml($widget->getWidget());
+        /** @var WidgetModel $widgetModel */
+        foreach ($widgetGroup->getWidgets() as $widgetModel) {
+            $widgetClass = $view->escapeHtml($widgetModel->getWidget());
 
             if ($this->getServiceLocator()->has($widgetClass)) {
-                $html .= $view->{$widgetClass}($widget);
+                $html .= $view->{$widgetClass}($widgetModel);
             }
         }
 

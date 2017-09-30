@@ -15,14 +15,10 @@ use UthandoThemeManager\Model\WidgetModel;
 
 class Content extends AbstractViewHelper
 {
-    /**
-     * @param WidgetModel $widget
-     * @return string|\Zend\View\Helper\Partial
-     */
-    public function __invoke($widget)
+    public function __invoke(WidgetModel $widgetModel) : string
     {
         $view = $this->getView();
-        $params = $widget->parseParams();
+        $params = $widgetModel->parseParams();
         $class = (isset($params['class'])) ? $params['class'] : '';
 
         $html = '<div class="' . $view->escapeHtml($class) . '">';

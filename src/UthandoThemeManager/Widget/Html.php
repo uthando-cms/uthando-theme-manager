@@ -15,13 +15,13 @@ use UthandoThemeManager\Model\WidgetModel;
 
 class Html extends AbstractViewHelper
 {
-    public function __invoke(WidgetModel $widget): string
+    public function __invoke(WidgetModel $widgetModel): string
     {
         $view   = $this->getView();
-        $params = $widget->parseParams();
+        $params = $widgetModel->parseParams();
         $class  = $params['class'] ?? '';
         $html   = '<div class="' . $view->escapeHtml($class) . '">';
-        $html  .= $widget->getHtml();
+        $html  .= $widgetModel->getHtml();
         $html  .= '</div>';
 
         return $html;

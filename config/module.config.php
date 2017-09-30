@@ -27,10 +27,11 @@ use UthandoThemeManager\View\BootStrapTheme;
 use UthandoThemeManager\View\SocialLinks;
 use UthandoThemeManager\View\ThemeOptionsHelper;
 use UthandoThemeManager\View\ThemePath;
-use UthandoThemeManager\View\WidgetGroupHelper;
+use UthandoThemeManager\View\WidgetHelper;
 use UthandoThemeManager\Widget\Html;
 use UthandoThemeManager\Widget\Content;
 use UthandoThemeManager\Widget\LayoutDefault;
+use UthandoThemeManager\Widget\Partial;
 use UthandoThemeManager\Widget\Search;
 
 return [
@@ -94,12 +95,12 @@ return [
             'SocialLinks'   => SocialLinks::class,
             'ThemeOptions'  => ThemeOptionsHelper::class,
             'ThemePath'     => ThemePath::class,
-            'WidgetGroup'   => WidgetGroupHelper::class,
+            'Widget'        => WidgetHelper::class,
 
             Html::class             => Html::class,
             Content::class          => Content::class,
             LayoutDefault::class    => LayoutDefault::class,
-            Search::class           => Search::class,
+            Partial::class          => Partial::class,
         ],
     ],
     'view_manager'  => [
