@@ -102,7 +102,7 @@ class BootStrapTheme extends AbstractViewHelper
             }
 
             //netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js
-            $view->headScript()->offsetSetFile(2, join('/', [
+            $view->inlineScript()->offsetSetFile(2, join('/', [
                 self::CLOUDFLARE_CDN,
                 self::BOOTSTRAP_PART,
                 self::BOOTSTRAP_VERSION,
@@ -122,7 +122,7 @@ class BootStrapTheme extends AbstractViewHelper
         // JS
         //ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js
 
-        $view->headScript()->offsetSetFile(0, join('/', [
+        $view->inlineScript()->offsetSetFile(0, join('/', [
             self::CLOUDFLARE_CDN,
             self::JQUERY_PATH,
             self::JQUERY_VERSION,
@@ -130,7 +130,7 @@ class BootStrapTheme extends AbstractViewHelper
         ]));
 
         if ($view->themeOptions('jquery_ui')) {
-            $view->headScript()->offsetSetFile(1, join('/', [
+            $view->inlineScript()->offsetSetFile(1, join('/', [
                 self::CLOUDFLARE_CDN,
                 self::JQUERY_UI_PATH,
                 self::JQUERY_UI_VERSION,
