@@ -32,19 +32,4 @@ $this->form->setAttributes([
     </div>
 </div>
 
-<?=$this->textEditor()->summernote();?>
-<script>
-    $(document).ready(function(){
-        $('#toggle-summernote').on('click', function (e) {
-
-            if (this.checked === false) {
-                $('textarea.editable-textarea').summernote('destroy');
-            } else {
-                $('textarea.editable-textarea').summernote(summernoteOptions);
-            }
-
-        });
-
-    });
-
-</script>
+<?php $this->textEditor()->summernote();?>
