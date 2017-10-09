@@ -102,7 +102,7 @@ class BootStrapTheme extends AbstractViewHelper
             }
 
             //netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js
-            $view->inlineScript()->offsetSetFile(2, join('/', [
+            $view->inlineScript()->prependFile(join('/', [
                 self::CLOUDFLARE_CDN,
                 self::BOOTSTRAP_PART,
                 self::BOOTSTRAP_VERSION,
@@ -122,15 +122,8 @@ class BootStrapTheme extends AbstractViewHelper
         // JS
         //ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js
 
-        $view->inlineScript()->offsetSetFile(0, join('/', [
-            self::CLOUDFLARE_CDN,
-            self::JQUERY_PATH,
-            self::JQUERY_VERSION,
-            self::JQUERY_JS
-        ]));
-
         if ($view->themeOptions('jquery_ui')) {
-            $view->inlineScript()->offsetSetFile(1, join('/', [
+            $view->inlineScript()->prependFile(join('/', [
                 self::CLOUDFLARE_CDN,
                 self::JQUERY_UI_PATH,
                 self::JQUERY_UI_VERSION,
@@ -144,6 +137,13 @@ class BootStrapTheme extends AbstractViewHelper
                 self::JQUERY_UI_CSS
             ]));
         }
+
+        $view->inlineScript()->prependFile(join('/', [
+            self::CLOUDFLARE_CDN,
+            self::JQUERY_PATH,
+            self::JQUERY_VERSION,
+            self::JQUERY_JS
+        ]));
     }
 
     public function getTheme()
