@@ -21,9 +21,9 @@ class Content extends AbstractViewHelper
         $params = $widgetModel->parseParams();
         $class = (isset($params['class'])) ? $params['class'] : '';
 
-        $html = '<div class="' . $view->escapeHtml($class) . '">';
+        $html = ($class) ? '<div class="' . $view->escapeHtml($class) . '">' : '';
         $html .= $view->get('content');
-        $html .= '</div>';
+        $html .= ($class) ? '</div>' : '';
 
         return $html;
     }

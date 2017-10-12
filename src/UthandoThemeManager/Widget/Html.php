@@ -20,9 +20,9 @@ class Html extends AbstractViewHelper
         $view   = $this->getView();
         $params = $widgetModel->parseParams();
         $class  = $params['class'] ?? '';
-        $html   = '<div class="' . $view->escapeHtml($class) . '">';
+        $html   = ($class) ? '<div class="' . $view->escapeHtml($class) . '">' : '';
         $html  .= $widgetModel->getHtml();
-        $html  .= '</div>';
+        $html  .=  ($class) ? '</div>' : '';
 
         return $html;
     }

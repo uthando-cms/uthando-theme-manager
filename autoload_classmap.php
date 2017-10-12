@@ -33,7 +33,7 @@ return array(
     'UthandoThemeManager\Hydrator\WidgetHydrator'            => __DIR__ . '/src/UthandoThemeManager/Hydrator/WidgetHydrator.php',
     'UthandoThemeManager\Widget\Partial'                     => __DIR__ . '/src/UthandoThemeManager/Widget/Partial.php',
     'UthandoThemeManager\Widget\Html'                        => __DIR__ . '/src/UthandoThemeManager/Widget/Html.php',
-    'UthandoThemeManager\Widget\LayoutDefault'               => __DIR__ . '/src/UthandoThemeManager/Widget/LayoutDefault.php',
+    'UthandoThemeManager\Widget\LayoutRow'                   => __DIR__ . '/src/UthandoThemeManager/Widget/LayoutRow.php',
     'UthandoThemeManager\Widget\Content'                     => __DIR__ . '/src/UthandoThemeManager/Widget/Content.php',
     'UthandoThemeManager\Model\WidgetModel'                  => __DIR__ . '/src/UthandoThemeManager/Model/WidgetModel.php',
     'UthandoThemeManager\Model\WidgetGroupModel'             => __DIR__ . '/src/UthandoThemeManager/Model/WidgetGroupModel.php',

@@ -30,7 +30,7 @@ use UthandoThemeManager\View\ThemePath;
 use UthandoThemeManager\View\WidgetHelper;
 use UthandoThemeManager\Widget\Html;
 use UthandoThemeManager\Widget\Content;
-use UthandoThemeManager\Widget\LayoutDefault;
+use UthandoThemeManager\Widget\LayoutRow;
 use UthandoThemeManager\Widget\Partial;
 use UthandoThemeManager\Widget\Search;
 
@@ -99,7 +99,7 @@ return [
 
             Html::class             => Html::class,
             Content::class          => Content::class,
-            LayoutDefault::class    => LayoutDefault::class,
+            LayoutRow::class        => LayoutRow::class,
             Partial::class          => Partial::class,
         ],
     ],

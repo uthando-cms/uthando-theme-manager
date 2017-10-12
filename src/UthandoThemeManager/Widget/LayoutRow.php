@@ -14,7 +14,7 @@ use UthandoCommon\View\AbstractViewHelper;
 use UthandoThemeManager\Model\WidgetModel;
 use UthandoThemeManager\View\WidgetGroupServiceTrait;
 
-class LayoutDefault extends AbstractViewHelper
+class LayoutRow extends AbstractViewHelper
 {
     use WidgetGroupServiceTrait;
 
@@ -24,7 +24,7 @@ class LayoutDefault extends AbstractViewHelper
         $view           = $this->getView();
         $params         = $widgetModel->parseParams();
         $class          = $params['class'] ?? '';
-        $html           = '<div class="' . $view->escapeHtml($class) . '">';
+        $html           = ($class) ? '<div class="' . $view->escapeHtml($class) . '">' : '';
 
         /** @var WidgetModel $widgetModel */
         foreach ($widgetGroup->getWidgets() as $widgetModel) {
@@ -35,7 +35,7 @@ class LayoutDefault extends AbstractViewHelper
             }
         }
 
-        $html .= '</div>';
+        $html .= ($class) ? '</div>' : '';
 
         return $html;
     }
