@@ -78,6 +78,7 @@ class WidgetManager extends AbstractRelationalMapperService
     {
         $widgets = $this->getMapper()->getWidgetsByGroupId($id);
 
+        /** @var WidgetModel $widget */
         foreach ($widgets as $widget) {
             $this->populate($widget, true);
         }
