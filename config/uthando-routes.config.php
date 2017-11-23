@@ -17,7 +17,6 @@ return [
                                 '__NAMESPACE__' => 'UthandoThemeManager\Controller',
                                 'controller'    => SettingsController::class,
                                 'action'        => 'index',
-                                'force-ssl'     => 'ssl'
                             ],
                         ],
                         'may_terminate' => true,
@@ -29,7 +28,6 @@ return [
                                     'defaults' => [
                                         'controller' => WidgetController::class,
                                         'action' => 'index',
-                                        'force-ssl' => 'ssl'
                                     ]
                                 ],
                                 'may_terminate' => true,
@@ -44,7 +42,6 @@ return [
                                             ],
                                             'defaults'      => [
                                                 'action'        => 'edit',
-                                                'force-ssl'     => 'ssl'
                                             ],
                                         ],
                                         'may_terminate' => true,
@@ -59,7 +56,6 @@ return [
                                             'defaults'      => [
                                                 'action'        => 'list',
                                                 'page'          => 1,
-                                                'force-ssl'     => 'ssl'
                                             ],
                                         ],
                                         'may_terminate' => true,
@@ -73,7 +69,6 @@ return [
                                     'defaults' => [
                                         'controller' => WidgetGroupController::class,
                                         'action' => 'index',
-                                        'force-ssl' => 'ssl'
                                     ]
                                 ],
                                 'may_terminate' => true,
@@ -88,7 +83,6 @@ return [
                                             ],
                                             'defaults'      => [
                                                 'action'        => 'edit',
-                                                'force-ssl'     => 'ssl'
                                             ],
                                         ],
                                         'may_terminate' => true,
@@ -103,7 +97,6 @@ return [
                                             'defaults'      => [
                                                 'action'        => 'list',
                                                 'page'          => 1,
-                                                'force-ssl'     => 'ssl'
                                             ],
                                         ],
                                         'may_terminate' => true,
@@ -117,7 +110,6 @@ return [
                                     'defaults' => [
                                         'controller' => SettingsController::class,
                                         'action' => 'index',
-                                        'force-ssl' => 'ssl'
                                     ]
                                 ],
                                 'may_terminate' => true,
@@ -128,7 +120,6 @@ return [
                                             'route' => '/reset-cache',
                                             'defaults' => [
                                                 'action' => 'reset-cache',
-                                                'force-ssl' => 'ssl'
                                             ],
                                         ],
                                     ],
