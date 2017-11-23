@@ -32,7 +32,6 @@ use UthandoThemeManager\Widget\Html;
 use UthandoThemeManager\Widget\Content;
 use UthandoThemeManager\Widget\LayoutRow;
 use UthandoThemeManager\Widget\Partial;
-use UthandoThemeManager\Widget\Search;
 
 return [
     'controllers' => [
@@ -90,17 +89,24 @@ return [
         ],
     ],
     'view_helpers' => [
+        'aliases' => [
+            'bootstrap'                 => BootStrapTheme::class,
+            'socialLinks'               => SocialLinks::class,
+            'themeOptions'              => ThemeOptionsHelper::class,
+            'themePath'                 => ThemePath::class,
+            'widget'                    => WidgetHelper::class,
+        ],
         'invokables' => [
-            'Bootstrap'     => BootStrapTheme::class,
-            'SocialLinks'   => SocialLinks::class,
-            'ThemeOptions'  => ThemeOptionsHelper::class,
-            'ThemePath'     => ThemePath::class,
-            'Widget'        => WidgetHelper::class,
+            BootStrapTheme::class       => BootStrapTheme::class,
+            SocialLinks::class          => SocialLinks::class,
+            ThemeOptionsHelper::class   => ThemeOptionsHelper::class,
+            ThemePath::class            => ThemePath::class,
+            WidgetHelper::class         => WidgetHelper::class,
 
-            Html::class             => Html::class,
-            Content::class          => Content::class,
-            LayoutRow::class        => LayoutRow::class,
-            Partial::class          => Partial::class,
+            Html::class                 => Html::class,
+            Content::class              => Content::class,
+            LayoutRow::class            => LayoutRow::class,
+            Partial::class              => Partial::class,
         ],
     ],
     'view_manager'  => [
