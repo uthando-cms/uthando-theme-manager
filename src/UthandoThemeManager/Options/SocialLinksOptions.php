@@ -32,7 +32,7 @@ class SocialLinksOptions extends AbstractOptions
     /**
      * @return string
      */
-    public function getFacebook()
+    public function getFacebook(): ?string
     {
         return $this->facebook;
     }
@@ -41,7 +41,7 @@ class SocialLinksOptions extends AbstractOptions
      * @param string $facebook
      * @return SocialLinksOptions
      */
-    public function setFacebook(string $facebook): SocialLinksOptions
+    public function setFacebook(?string $facebook): SocialLinksOptions
     {
         $this->facebook = $facebook;
         return $this;
@@ -50,7 +50,7 @@ class SocialLinksOptions extends AbstractOptions
     /**
      * @return string
      */
-    public function getTwitter()
+    public function getTwitter(): ?string
     {
         return $this->twitter;
     }
@@ -59,7 +59,7 @@ class SocialLinksOptions extends AbstractOptions
      * @param string $twitter
      * @return SocialLinksOptions
      */
-    public function setTwitter(string $twitter): SocialLinksOptions
+    public function setTwitter(?string $twitter): SocialLinksOptions
     {
         $this->twitter = $twitter;
         return $this;
@@ -68,7 +68,7 @@ class SocialLinksOptions extends AbstractOptions
     /**
      * @return string
      */
-    public function getRss()
+    public function getRss(): ?string
     {
         return $this->rss;
     }
