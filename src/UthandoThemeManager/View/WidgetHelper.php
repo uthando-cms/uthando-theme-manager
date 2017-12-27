@@ -35,7 +35,7 @@ class WidgetHelper extends AbstractViewHelper
         if ('group' === $widgetOrGroup) {
             $html = $this->getWidgetGroup($widgetName);
         } else {
-            $html = $this->getWidget($widgetName);
+            $html = $this->getWidget($name);
         }
 
         return $html;
@@ -47,14 +47,16 @@ class WidgetHelper extends AbstractViewHelper
 
         if (!$widgetGroup) return '';
 
-        $html = '<div class="row">';
+        $params         = $widgetGroup->parseParams();
+        $class          = $params['class'] ?? '';
+        $html           = ($class) ? '<div class="' . $this->getView()->escapeHtml($class) . '">' : '';
 
         /** @var WidgetModel $widgetModel */
         foreach ($widgetGroup->getWidgets() as $widgetModel) {
             $html .= $this->renderWidget($widgetModel);
         }
 
-        $html .= '</div>';
+        $html .= ($class) ? '</div>' : '';
 
         return $html;
     }

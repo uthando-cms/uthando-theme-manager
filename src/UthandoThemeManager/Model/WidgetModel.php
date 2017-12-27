@@ -15,7 +15,8 @@ use UthandoCommon\Model\ModelInterface;
 
 class WidgetModel implements ModelInterface
 {
-    use Model;
+    use Model,
+        WidgetParamsTrait;
 
     /**
      * @var int
@@ -52,10 +53,6 @@ class WidgetModel implements ModelInterface
      */
     protected $showTitle;
 
-    /**
-     * @var string
-     */
-    protected $params;
 
     /**
      * @var string
@@ -71,15 +68,6 @@ class WidgetModel implements ModelInterface
      * @var WidgetGroupModel
      */
     protected $group;
-
-    /**
-     * @return array|bool
-     */
-    public function parseParams()
-    {
-        $params = parse_ini_string($this->getParams(), true);
-        return $params;
-    }
 
     /**
      * @return int
@@ -204,24 +192,6 @@ class WidgetModel implements ModelInterface
     public function setShowTitle($showTitle)
     {
         $this->showTitle = $showTitle;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getParams()
-    {
-        return $this->params;
-    }
-
-    /**
-     * @param string $params
-     * @return WidgetModel
-     */
-    public function setParams($params)
-    {
-        $this->params = $params;
         return $this;
     }
 

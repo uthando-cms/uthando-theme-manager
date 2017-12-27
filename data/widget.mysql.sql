@@ -52,7 +52,8 @@ CREATE TABLE `widget` (
 DROP TABLE IF EXISTS `widgetGroup`;
 CREATE TABLE `widgetGroup` (
   `widgetGroupId` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `params` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

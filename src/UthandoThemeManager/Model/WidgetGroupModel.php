@@ -15,7 +15,8 @@ use UthandoCommon\Model\ModelInterface;
 
 class WidgetGroupModel implements ModelInterface
 {
-    use Model;
+    use Model,
+        WidgetParamsTrait;
 
     /**
      * @var int

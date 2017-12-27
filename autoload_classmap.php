@@ -36,6 +36,7 @@ return array(
     'UthandoThemeManager\Widget\LayoutRow'                   => __DIR__ . '/src/UthandoThemeManager/Widget/LayoutRow.php',
     'UthandoThemeManager\Widget\Content'                     => __DIR__ . '/src/UthandoThemeManager/Widget/Content.php',
     'UthandoThemeManager\Model\WidgetModel'                  => __DIR__ . '/src/UthandoThemeManager/Model/WidgetModel.php',
+    'UthandoThemeManager\Model\WidgetParamsTrait'            => __DIR__ . '/src/UthandoThemeManager/Model/WidgetParamsTrait.php',
     'UthandoThemeManager\Model\WidgetGroupModel'             => __DIR__ . '/src/UthandoThemeManager/Model/WidgetGroupModel.php',
     'UthandoThemeManager\Module'                             => __DIR__ . '/Module.php',
     'UthandoThemeMangerTest\Framework\TestCase'              => __DIR__ . '/test/UthandoThemeManagerTest/Framework/TestCase.php',

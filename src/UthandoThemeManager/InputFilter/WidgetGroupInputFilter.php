@@ -57,5 +57,20 @@ class WidgetGroupInputFilter extends InputFilter implements ServiceLocatorAwareI
                 ]],
             ],
         ]);
+
+        $this->add([
+            'name'  => 'params',
+            'required'  => false,
+            'filters'   => [
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                ['name' => StringLength::class, 'options' => [
+                    'encoding'  => 'UTF-8',
+                    'max'       => 1000,
+                ]],
+            ],
+        ]);
     }
 }
