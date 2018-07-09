@@ -140,7 +140,7 @@ class WidgetForm extends Form
             ],
             'attributes'    => [
                 'id' => 'toggle-summernote',
-                'checked' => true,
+                'checked' => false,
             ],
         ]);
 
