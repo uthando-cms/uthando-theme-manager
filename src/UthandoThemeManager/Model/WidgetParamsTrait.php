@@ -11,6 +11,8 @@
 namespace UthandoThemeManager\Model;
 
 
+use Zend\Config\Reader\Ini;
+
 trait WidgetParamsTrait
 {
     /**
@@ -23,8 +25,8 @@ trait WidgetParamsTrait
      */
     public function parseParams()
     {
-        $params = parse_ini_string((string) $this->getParams(), true);
-        return $params;
+        $params = new Ini();
+        return $params->fromString($this->getParams());
     }
 
     /**
