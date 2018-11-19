@@ -10,6 +10,7 @@
 
 namespace UthandoThemeManager\View;
 
+use UthandoCommon\Service\ServiceManager;
 use UthandoThemeManager\Service\WidgetGroupManager;
 use Zend\ServiceManager\AbstractPluginManager;
 
@@ -30,7 +31,7 @@ trait WidgetGroupServiceTrait
         if (!$this->widgetGroupManager instanceof WidgetGroupManager) {
             $widgetGroupManager = $this->getServiceLocator()
                 ->getServiceLocator()
-                ->get('UthandoServiceManager')
+                ->get(ServiceManager::class)
                 ->get(WidgetGroupManager::class);
             $this->widgetGroupManager = $widgetGroupManager;
         }

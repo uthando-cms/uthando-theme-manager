@@ -10,6 +10,7 @@
 
 namespace UthandoThemeManager\View;
 
+use UthandoCommon\Service\ServiceManager;
 use UthandoCommon\View\AbstractViewHelper;
 use UthandoThemeManager\Model\WidgetModel;
 use UthandoThemeManager\Service\WidgetGroupManager;
@@ -88,7 +89,7 @@ class WidgetHelper extends AbstractViewHelper
         if (!$this->widgetGroupManager instanceof WidgetGroupManager) {
             $widgetGroupManager = $this->getServiceLocator()
                 ->getServiceLocator()
-                ->get('UthandoServiceManager')
+                ->get(ServiceManager::class)
                 ->get(WidgetGroupManager::class);
             $this->widgetGroupManager = $widgetGroupManager;
         }
