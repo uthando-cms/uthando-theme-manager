@@ -10,9 +10,9 @@
 
 namespace UthandoThemeManager\Event;
 
-use Assetic\Filter\CssMinFilter;
-use Assetic\Filter\JSMinFilter;
 use AssetManager\Cache\FilePathCache;
+use UthandoCommon\Filter\CssMin;
+use UthandoCommon\Filter\JSMin;
 use UthandoThemeManager\Options\ThemeOptions;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -47,13 +47,13 @@ class ConfigListener implements ListenerAggregateInterface
 
         if ($options->isCompressCss()) {
             $assetManager['asset_manager']['filters']['css'][] = [
-                'filter' => CssMinFilter::class,
+                'filter' => CssMin::class,
             ];
         }
 
         if ($options->isCompressCss()) {
             $assetManager['asset_manager']['filters']['js'][] = [
-                'filter' => JSMinFilter::class,
+                'filter' => JSMin::class,
             ];
         }
 
