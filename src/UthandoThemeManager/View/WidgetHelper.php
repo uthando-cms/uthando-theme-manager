@@ -102,7 +102,7 @@ class WidgetHelper extends AbstractViewHelper
         if (!$this->widgetManager instanceof WidgetManager) {
             $widgetManager = $this->getServiceLocator()
                 ->getServiceLocator()
-                ->get('UthandoServiceManager')
+                ->get(ServiceManager::class)
                 ->get(WidgetManager::class);
             $this->widgetManager = $widgetManager;
         }
