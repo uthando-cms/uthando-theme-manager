@@ -10,6 +10,7 @@
 
 namespace UthandoThemeManager\Form\Element;
 
+use UthandoCommon\Service\ServiceManager;
 use UthandoThemeManager\Model\WidgetGroupModel;
 use UthandoThemeManager\Service\WidgetGroupManager;
 use Zend\Form\Element\Select;
@@ -46,7 +47,7 @@ class WidgetGroupSelect extends Select implements ServiceLocatorAwareInterface
         /** @var WidgetGroupManager $widgetGroupManager */
         $widgetGroupManager = $this->getServiceLocator()
             ->getServiceLocator()
-            ->get('UthandoServiceManager')
+            ->get(ServiceManager::class)
             ->get(WidgetGroupManager::class);
 
         $widgetGroupManager->getMapper();
